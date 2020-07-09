@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-09 16:37:43
+ * @LastEditTime: 2020-07-09 17:31:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
@@ -14,6 +14,8 @@
     <BarLineChart />
     <h3>饼图</h3>
     <PieChart />
+    <h3>双柱形图</h3>
+    <BarDodgeChart />
   </div>
 </template>
 
@@ -21,13 +23,15 @@
 import BarLineChart from '@/components/antv/f2/BarLineChart'
 import BaseChart from '@/components/antv/f2/BaseChart'
 import PieChart from '@/components/antv/f2/PieChart'
+import BarDodgeChart from '@/components/antv/f2/BarDodgeChart'
 
 export default {
   name: 'IndexF2',
   components: {
     BarLineChart,
     BaseChart,
-    PieChart
+    PieChart,
+    BarDodgeChart
   }
 }
 </script>

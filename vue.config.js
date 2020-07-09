@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-09 16:03:05
- * @LastEditTime: 2020-07-09 16:04:48
+ * @LastEditTime: 2020-07-09 17:12:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\until\vue.config.js
@@ -37,7 +37,7 @@ module.exports = {
   },
   css: {
     extract: IS_PROD,
-    requireModuleExtension: false, // 去掉文件名中的 .module
+    // requireModuleExtension: true, // 去掉文件名中的 .module
     loaderOptions: {
       // 给 less-loader 传递 Less.js 相关选项
       less: {
