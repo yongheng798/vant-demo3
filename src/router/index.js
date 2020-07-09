@@ -1,10 +1,18 @@
+/*
+ * @Author: your name
+ * @Date: 2020-07-07 20:38:01
+ * @LastEditTime: 2020-07-08 14:57:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vant-demo3\src\router\index.js
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -17,6 +25,21 @@ Vue.use(VueRouter)
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/vant',
+    name: 'vantIndex',
+    component: () => import(/* webpackChunkName: "about" */ '../views/vant/index.vue')
+  },
+  {
+    path: '/form',
+    name: 'FormMix',
+    component: () => import(/* webpackChunkName: "about" */ '../views/vant/form/formMix.vue')
+  },
+  {
+    path: '/antvF2',
+    name: 'antvF2',
+    component: () => import(/* webpackChunkName: "about" */ '../views/antv/indexF2.vue')
   }
 ]
 

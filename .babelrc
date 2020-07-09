@@ -1,0 +1,17 @@
+/*
+ * @Author: your name
+ * @Date: 2020-07-09 16:23:53
+ * @LastEditTime: 2020-07-09 16:31:31
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vant-demo3\.babel.js
+ */
+ {
+  "plugins": [
+    ["import", {
+      "libraryName": "vant",
+      "libraryDirectory": "es",
+      "style": true
+    }]
+  ]
+}
