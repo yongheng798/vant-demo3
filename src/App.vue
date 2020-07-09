@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-09 16:36:47
+ * @LastEditTime: 2020-07-09 19:52:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\App.vue
@@ -20,7 +20,6 @@
         <router-view />
       </keep-alive>
     </transition>
-
   </div>
 </template>
 
@@ -68,6 +67,7 @@ export default {
 #app {
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,8 +76,7 @@ export default {
 }
 
 #nav {
-  padding: 20px;
-
+  padding: 20px 0;
   a {
     font-weight: bold;
     color: #2c3e50;

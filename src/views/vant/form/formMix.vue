@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:24
- * @LastEditTime: 2020-07-08 11:36:09
+ * @LastEditTime: 2020-07-09 18:25:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\form\FormMix.vue
@@ -162,29 +162,30 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { Form, Field, Button, Switch, Calendar, Checkbox, CheckboxGroup, Stepper, Rate, Slider, Uploader, Picker, Area, DatetimePicker, Popup, AddressEdit, Toast } from 'vant'
 import { areaList } from '../../../api/json/area'
 
-Vue.use(Form)
-Vue.use(Field)
-Vue.use(Button)
-Vue.use(Switch)
-Vue.use(Calendar)
-Vue.use(Checkbox)
-Vue.use(CheckboxGroup)
-Vue.use(Stepper)
-Vue.use(Rate)
-Vue.use(Slider)
-Vue.use(Uploader)
-Vue.use(Picker)
-Vue.use(Area)
-Vue.use(DatetimePicker)
-Vue.use(Popup)
-Vue.use(AddressEdit)
-
 console.log(areaList)
 export default {
+  components: {
+    [Form.name]: Form,
+    [Field.name]: Field,
+    [Button.name]: Button,
+    [Switch.name]: Switch,
+    [Calendar.name]: Calendar,
+    [Checkbox.name]: Checkbox,
+    [CheckboxGroup.name]: CheckboxGroup,
+    [Stepper.name]: Stepper,
+    [Rate.name]: Rate,
+    [Slider.name]: Slider,
+    [Uploader.name]: Uploader,
+    [Picker.name]: Picker,
+    [Area.name]: Area,
+    [DatetimePicker.name]: DatetimePicker,
+    [Popup.name]: Popup,
+    [AddressEdit.name]: AddressEdit,
+    [Toast.name]: Toast
+  },
   data() {
     return {
       value: 1,

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-08 14:57:28
+ * @LastEditTime: 2020-07-09 19:53:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\router\index.js
@@ -44,7 +44,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
