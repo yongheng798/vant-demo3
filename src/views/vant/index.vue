@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-09 20:08:08
+ * @LastEditTime: 2020-07-09 21:15:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -24,25 +24,48 @@
       @search="onSearch"
       @cancel="onCancel"
     />
-    <!-- 轮播图 -->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item>1</van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
-      <van-swipe-item>3</van-swipe-item>
-      <van-swipe-item>4</van-swipe-item>
-    </van-swipe>
-    <!-- 筛选分类 -->
-    <van-dropdown-menu>
-      <van-dropdown-item v-model="dropdownValue" :options="option" />
-      <van-dropdown-item ref="item" title="筛选">
-        <van-cell center title="标题">
-          <template #right-icon>
-            <van-switch v-model="checked" size="24" />
-          </template>
-        </van-cell>
-        <van-button block type="info" @click="dropdownOnConfirm">确认</van-button>
-      </van-dropdown-item>
-    </van-dropdown-menu>
+    <div class="scroll-container">
+      <!-- 轮播图 -->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item>1</van-swipe-item>
+        <van-swipe-item>2</van-swipe-item>
+        <van-swipe-item>3</van-swipe-item>
+        <van-swipe-item>4</van-swipe-item>
+      </van-swipe>
+      <!-- 筛选分类 -->
+      <van-dropdown-menu>
+        <van-dropdown-item v-model="dropdownValue" :options="option" />
+        <van-dropdown-item ref="item" title="筛选">
+          <van-cell center title="标题">
+            <template #right-icon>
+              <van-switch v-model="checked" size="24" />
+            </template>
+          </van-cell>
+          <van-button block type="info" @click="dropdownOnConfirm">确认</van-button>
+        </van-dropdown-item>
+      </van-dropdown-menu>
+      <!-- 滚动通知 -->
+      <van-notice-bar
+        left-icon="volume-o"
+        text="在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准。"
+      />
+      <!-- 九宫格 -->
+      <van-grid :column-num="3">
+        <van-grid-item v-for="value in 6" :key="value" icon="photo-o" text="文字" />
+      </van-grid>
+      <!-- 手风琴 -->
+      <van-collapse v-model="activeName" accordion>
+        <van-collapse-item title="标题1" name="1">内容</van-collapse-item>
+        <van-collapse-item title="标题2" name="2">内容</van-collapse-item>
+        <van-collapse-item title="标题3" name="3">内容</van-collapse-item>
+      </van-collapse>
+      <!-- 分割线 -->
+      <van-divider
+        :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+      >
+        分割线文字
+      </van-divider>
+    </div>
     <!-- 底部菜单 -->
     <van-tabbar v-model="active" route>
       <van-tabbar-item icon="home-o" replace to="/">首页</van-tabbar-item>
@@ -54,7 +77,7 @@
 </template>
 
 <script>
-import { NavBar, Tabbar, TabbarItem, Swipe, Search, SwipeItem, DropdownMenu, DropdownItem, Switch, Cell, Button, Toast } from 'vant'
+import { NavBar, Tabbar, TabbarItem, Swipe, Search, SwipeItem, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
 
 export default {
   components: {
@@ -69,6 +92,12 @@ export default {
     [Switch.name]: Switch,
     [Cell.name]: Cell,
     [Button.name]: Button,
+    [Collapse.name]: Collapse,
+    [CollapseItem.name]: CollapseItem,
+    [Divider.name]: Divider,
+    [NoticeBar.name]: NoticeBar,
+    [Grid.name]: Grid,
+    [GridItem.name]: GridItem,
     [Toast.name]: Toast
   },
   data() {
@@ -83,7 +112,8 @@ export default {
         { text: '全部商品', value: 0 },
         { text: '新款商品', value: 1 },
         { text: '活动商品', value: 2 }
-      ]
+      ],
+      activeName: '1'
     }
   },
   methods: {
@@ -116,4 +146,11 @@ export default {
     text-align: center;
     background-color: #39a9ed;
   }
+.scroll-container{
+  position: relative;
+  width: 100%;
+  height: calc(100% -150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 </style>

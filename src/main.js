@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-09 19:44:00
+ * @LastEditTime: 2020-07-09 20:59:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\main.js
@@ -22,6 +22,34 @@ Vue.prototype.$F2 = F2
 // Vue.use(Vant)
 // import Vconsole from 'vconsole' 移动端console
 // new Vconsole()
+// 路由动画
+Vue.prototype.transitionName = 'slide-left'
+
+// 前进
+Vue.prototype.push = (params) => {
+  const { query: { from }} = params
+  if (!params) {
+    console.error('路由参数错误')
+  }
+  if (from) {
+    Vue.prototype.transitionName = 'slide-right'
+  } else {
+    Vue.prototype.transitionName = 'slide-left'
+  }
+  router.push(params)
+}
+
+// 后退
+Vue.prototype.goBack = (n = -1) => {
+  Vue.prototype.transitionName = 'slide-right'
+
+  const path = router.currentRoute.path
+  if (path.includes('home')) {
+    router.push({ path: '/' })
+  } else {
+    router.go(n)
+  }
+}
 
 Vue.config.productionTip = false
 

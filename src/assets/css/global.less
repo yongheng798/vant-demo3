@@ -1,2 +1,23 @@
 @import "./reset.css";  /*全局样式*/
 @import "./hair.css"; /*刘海屏适配*/
+
+/*页面切换动画*/
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active{
+  will-change: transform;
+  transition: all 0.5s;
+  // position: absolute;
+  width: cals(100% - 0);
+  left: 0;
+}
+.slide-right-enter,
+.slide-left-leave-active{
+  transform: translateX(-100%);
+}
+.slide-right-leave-active,
+.slide-left-enter{
+  transform: translateX(100%);
+}
+
