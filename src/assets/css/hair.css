@@ -1,0 +1,15 @@
+/*iphoneX、iphoneXs*/
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3),
+/*iphone Xs Max*/
+only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:3),
+/*iphone XR*/
+only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio:2)
+{
+  .container {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+    &.safe-bottom {
+      padding-bottom: 13px;
+    }
+  }
+}
