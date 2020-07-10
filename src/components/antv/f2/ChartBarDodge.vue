@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-09 17:38:40
+ * @LastEditTime: 2020-07-10 09:24:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -50,7 +50,7 @@ export default {
         height: 300
       })
 
-      console.log('this.chart===', this.chart)
+      // console.log('this.chart===', this.chart)
       this.chart.clear()
       this.chart.source(chartDate)
       this.$nextTick(() => {

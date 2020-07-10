@@ -1,54 +1,63 @@
 /*
  * @Author: your name
  * @Date: 2020-07-08 14:08:30
- * @LastEditTime: 2020-07-08 14:09:09
+ * @LastEditTime: 2020-07-10 16:34:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\api\json\barLineChart.js
  */
 export const barLineChart = [{
-  name: 'Jon Nicoll',
+  name: '2020-06-05',
   score: 282,
-  avgScore: 94
+  avgScore: 14
 }, {
-  name: 'Aaron Maxwell',
+  name: '2020-06-07',
   score: 208,
   avgScore: 41.6
 }, {
-  name: 'Warren Clunes',
+  name: '2020-06-08',
   score: 186,
   avgScore: 46.5
 }, {
-  name: 'David Bolton',
+  name: '2020-06-09',
   score: 184,
   avgScore: 30.67
 }, {
-  name: 'Joel Robindon',
+  name: '2020-06-10',
   score: 177,
-  avgScore: 44.25
+  avgScore: 24.25
 }, {
-  name: 'Kyle Buckley',
+  name: '2020-06-11',
   score: 150,
-  avgScore: 50
+  avgScore: 20
 }, {
-  name: 'Jordan Lawrence',
+  name: '2020-06-12',
   score: 148,
   avgScore: 24.67
 }, {
-  name: 'Jack Carey',
+  name: '2020-06-13',
   score: 138,
   avgScore: 34.5
 }, {
-  name: 'Kuldeep Pegu',
+  name: '2020-06-14',
   score: 130,
   avgScore: 32.5
 }, {
-  name: 'Max Hillier',
+  name: '2020-06-15',
   score: 128,
   avgScore: 32
 }, {
-  name: 'Angus Le Lievre',
+  name: '2020-06-16',
   score: 127,
-  avgScore: 62.5
+  avgScore: 12.5
 }]
 
+export const baseLegendObj = {
+  score: {
+    name: '个人总数',
+    unit: '总分'
+  },
+  avgScore: {
+    name: '平均分数',
+    unit: '个人平均分'
+  }}

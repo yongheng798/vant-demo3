@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:24
- * @LastEditTime: 2020-07-09 18:25:45
+ * @LastEditTime: 2020-07-10 09:26:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\form\FormMix.vue
@@ -165,7 +165,6 @@
 import { Form, Field, Button, Switch, Calendar, Checkbox, CheckboxGroup, Stepper, Rate, Slider, Uploader, Picker, Area, DatetimePicker, Popup, AddressEdit, Toast } from 'vant'
 import { areaList } from '../../../api/json/area'
 
-console.log(areaList)
 export default {
   components: {
     [Form.name]: Form,

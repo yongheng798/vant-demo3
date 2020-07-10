@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 15:09:51
- * @LastEditTime: 2020-07-08 17:24:26
+ * @LastEditTime: 2020-07-10 09:25:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BaseChart.vue
@@ -37,7 +37,6 @@ export default {
         { genre: 'Shooter', sold: 350 },
         { genre: 'Other', sold: 150 }
       ]
-      console.log('9999999999')
       // Step 1: 创建 Chart 对象
       const chart = new this.$F2.Chart({
         id: 'baseChart' + this.Uid,
@@ -47,7 +46,7 @@ export default {
         height: 300
       })
 
-      console.log('chart===', chart)
+      // console.log('chart===', chart)
       // Step 2: 载入数据源
       chart.source(data)
       this.$nextTick(() => {
@@ -57,10 +56,8 @@ export default {
       chart.interval()
         .position('genre*sold')
         .color('genre')
-      console.log('start6666end')
       chart.render()
       // Step 4: 渲染图表
-      console.log('6666end')
     }
   }
 }
