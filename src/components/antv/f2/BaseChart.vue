@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 15:09:51
- * @LastEditTime: 2020-07-10 09:25:49
+ * @LastEditTime: 2020-07-13 10:46:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BaseChart.vue
 -->
 <template>
   <div class="chart-containner">
+    <h3>基本图形</h3>
     <canvas :id="`baseChart${Uid}`" />
   </div>
 </template>

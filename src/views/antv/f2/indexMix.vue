@@ -1,66 +1,41 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-13 15:27:51
+ * @LastEditTime: 2020-07-13 11:12:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
 -->
 <template>
   <div class="constainer">
-    <van-tabs type="card" animated swipeable>
-      <van-tab title="折线图">
-        <indexLineChart />
-      </van-tab>
-      <van-tab title="面积图">
-        <indexAreaChart />
-      </van-tab>
-      <van-tab title="柱形图">
-        <indexBarColumnChart />
-      </van-tab>
-      <van-tab title="饼图"><indexPieChart /></van-tab>
-      <van-tab title="雷达图">
-        <indexRadarChart />
-      </van-tab>
-      <van-tab title="漏斗图">
-        <indexFunnelChart />
-      </van-tab>
-      <van-tab title="功能组件">内容 3</van-tab>
-      <van-tab title="混合图形">
-        <indexMix />
-      </van-tab>
-    </van-tabs>
-
+    <BaseChart />
+    <BarLineChart :bar-line-chart="barLineChart" :base-legend-obj="baseLegendObj" />
+    <PieChart />
+    <BarDodgeChart />
   </div>
 </template>
 
 <script>
-import { Tab, Tabs } from 'vant'
 
-import indexLineChart from '@/views/antv/f2/indexLineChart'
-import indexAreaChart from '@/views/antv/f2/indexAreaChart'
-import indexBarColumnChart from '@/views/antv/f2/indexBarColumnChart'
-import indexPieChart from '@/views/antv/f2/indexPieChart'
-import indexRadarChart from '@/views/antv/f2/indexRadarChart'
-import indexFunnelChart from '@/views/antv/f2/indexFunnelChart'
+import BaseChart from '@/components/antv/f2/BaseChart'
+import PieChart from '@/components/antv/f2/PieChart'
+import BarLineChart from '@/components/antv/f2/BarLineChart'
+import BarDodgeChart from '@/components/antv/f2/BarDodgeChart'
 
-import indexMix from '@/views/antv/f2/indexMix'
+import { barLineChart, baseLegendObj } from '../../../api/json/barLineChart'
 
 export default {
   name: 'IndexF2',
   components: {
-    [Tab.name]: Tab,
-    [Tabs.name]: Tabs,
-    indexLineChart,
-    indexAreaChart,
-    indexBarColumnChart,
-    indexPieChart,
-    indexRadarChart,
-    indexFunnelChart,
-    indexMix
+    BaseChart,
+    PieChart,
+    BarLineChart,
+    BarDodgeChart
   },
   data() {
     return {
+      barLineChart: barLineChart,
+      baseLegendObj: baseLegendObj
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-09 19:53:46
+ * @LastEditTime: 2020-07-12 12:05:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\router\index.js
@@ -25,6 +25,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/canvas',
+    name: 'canvasIndex',
+    component: () => import(/* webpackChunkName: "about" */ '../views/canvas/index.vue')
   },
   {
     path: '/vant',

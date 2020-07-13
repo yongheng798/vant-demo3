@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-10 09:24:56
+ * @LastEditTime: 2020-07-13 10:46:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
 -->
 <template>
   <div class="chart-wrapper">
+    <h3>柱形图+折线图+点位图</h3>
     <canvas :id="`barDodgeChart${Uid}`" />
   </div>
 </template>

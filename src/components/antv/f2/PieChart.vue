@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-08 18:28:10
+ * @LastEditTime: 2020-07-13 10:46:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLinethis.chart.vue
 -->
 <template>
   <div class="chart-wrapper">
+    <h3>饼图</h3>
     <canvas :id="`pieChart${Uid}`" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-09 21:15:05
+ * @LastEditTime: 2020-07-13 11:19:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -51,7 +51,7 @@
       />
       <!-- 九宫格 -->
       <van-grid :column-num="3">
-        <van-grid-item v-for="value in 6" :key="value" icon="photo-o" text="文字" />
+        <van-grid-item v-for="value in 9" :key="value" icon="photo-o" text="文字" />
       </van-grid>
       <!-- 手风琴 -->
       <van-collapse v-model="activeName" accordion>
@@ -103,7 +103,8 @@ export default {
   data() {
     return {
       active: 'home',
-      value: '',
+      value: [],
+      values2: [],
       dropdownValue: 0,
       switch1: false,
       switch2: false,

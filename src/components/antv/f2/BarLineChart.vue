@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-10 18:24:31
+ * @LastEditTime: 2020-07-13 15:15:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -9,35 +9,65 @@
 
 <template>
   <div class="chart-wrapper">
+    <h3>柱形图+折线图+点位图</h3>
     <div class="chart-box">
       <div ref="chartTips" class="f2-tooltips">
         <span />
         <span />
       </div>
-      <canvas :id="`barLineChart${Uid}`" ref="canvasChartBarLine" />
+      <canvas :id="`barLineChart${Uid}`" ref="canvasBarLineChart" />
     </div>
   </div>
 </template>
 
 <script>
-import { barLineChart, baseLegendObj } from '../../../api/json/barLineChart'
+// import { barLineChart, baseLegendObj } from '../../../api/json/barLi  neChart'
 
 export default {
   name: 'BarLineChart',
+  props: {
+    barLineChart: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    baseLegendObj: {
+      type: Object,
+      required: true,
+      default: () => {}
+    }
+  },
   data() {
     return {
       Uid: (new Date()).getTime(),
       chart: null
     }
   },
-  watch: {},
+  watch: {
+    // 普通监听，如果不使用vue的mounted，则不渲染画布，不往下执行方法
+    // barLineChart: (val) => {
+    //   this.initChart()
+    // }
+    // 深度监听，同样不往下执行方法
+    // barLineChart: {
+    //   handler(val) {
+    //     setTimeout(() => {
+    //       this.initChart()
+    //     }, 20)
+    //   },
+    //   deep: true
+    // }
+  },
+  // 使用watch可以不用mounted
   mounted() {
     this.initChart()
   },
   methods: {
     initChart() {
+      // this.createChart(this.barLineChart, this.baseLegendObj)
       this.$nextTick(() => {
-        this.createChart(barLineChart, baseLegendObj)
+        // this.createChart(barLineChart, baseLegendObj)
+        this.createChart(this.barLineChart, this.baseLegendObj)
       })
     },
     createChart(chartData, baseLegendObj) {
@@ -197,20 +227,22 @@ export default {
       const _this = this
       const tooltipsElement = this.$refs.chartTips
       // tooltip点击提示
+      console.log('===========', this.chart.tooltip())
       this.chart.tooltip({
         alwaysShow: false, // 当移出触发区域，是否仍显示提示框内容，默认为 false，移出触发区域 tooltip 消失，设置为 true 可以保证一直显示提示框内容
         offsetX: 0, // x 方向的偏移
         offsetY: 0, // y 方向的偏移
-        triggerOn: ['touchstart', 'touchmove'], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
+        triggerOn: ['click'], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
         triggerOff: 'touchend', // 消失的触发行为，可自定义
         showTitle: true, // 是否展示标题，默认不展示
         showCrosshairs: true, // 是否显示辅助线，点图、路径图、线图、面积图默认展示
         crosshairsStyle: {
-          stroke: 'rgba(0, 0, 0, 0.25)',
-          lineWidth: 2
+          stroke: 'rgba(0, 255, 255, 0.75)',
+          lineWidth: 1.5,
+          lineDesh: ''
         }, // 配置辅助线的样式
-        showTooltipMarker: false, // 是否显示 tooltipMarker
-        showItemMarker: true, // 是否展示每条记录项前面的 marker
+        // showTooltipMarker: false, // 是否显示 tooltipMarker
+        // showItemMarker: false, // 是否展示每条记录项前面的 marker
         itemMarkerStyle: {
           radius: 7,
           symbol: 'circle',
@@ -222,18 +254,36 @@ export default {
         snap: true, // 是否将辅助线准确定位至数据点
         onShow: (ev) => {
           var currentData = ev.items[0]
+          console.log('tooltip onShow', ev)
           var scoreCurrent = isNaN(currentData.origin.score) ? '-' : currentData.origin.score.toFixed(2)
           var avgScoreCurrent = isNaN(currentData.origin.avgScore) ? '-' : currentData.origin.avgScore.toFixed(2)
-          var titleHtml = `${currentData.origin.name.slice(5)}`
-          var scoreHtml = `${scoreCurrent}`
-          var avgScoreHtml = `${avgScoreCurrent}`
 
-          tooltipsElement.innerHTML = titleHtml + (chartLegendItems.avgScore ? avgScoreHtml : '') + (chartLegendItems.score ? scoreHtml : '')
+          var tooolTitleStyle = `color: rgba(255, 255, 255, 0.7); line-height: 1.5; font-size: 14px; word-wrap: break-word; font-weight: normal;`
+          var itemsStyle = `display: flex; justify-content: space-between; flex-direction: row; color: rgba(255, 255, 255, 0.7); font-size: 13px; line-height:1.5; position: relative;`
+          var toolDotStyle = `position: absolute; top: 50%; margin-top: -2px; width: 4px; height: 4px; display: inline-block; border-radius: 50%;`
+          var itemsTitleStyle = ` margin-left:10px`
+          var itemsUnitStyle = ` text-align: right; margin-left:10px`
+
+          var titleHtml = `<h3 style="${tooolTitleStyle}">${currentData.origin.name.slice(5)}</h3>`
+
+          var scoreHtml = `<div style="${itemsStyle}">
+            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 0 ? chartLegendItems[0].fill : ''}"></i>
+            <div style="${itemsUnitStyle}">${chartLegendItems.length > 0 ? chartLegendItems[0].unit : '分'}</div>
+            <div style="${itemsTitleStyle}">${scoreCurrent}</div>
+          </div>`
+
+          var avgScoreHtml = `<div style="${itemsStyle}">
+            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 0 ? chartLegendItems[1].fill : ''}"></i>
+            <div style="${itemsUnitStyle}">${chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%'}</div>
+            <div style="${itemsTitleStyle}">${avgScoreCurrent}</div>
+          </div>`
+
+          tooltipsElement.innerHTML = titleHtml + (chartLegendItems.length > 0 ? avgScoreHtml : '') + (chartLegendItems.length > 1 ? scoreHtml : '')
           tooltipsElement.style.opacity = '1'
           tooltipsElement.style.display = 'inline-block'
           // 画布初始化边距 0 0
-          var canvasOffsetLeft = this.$refs.canvasChartBarLine.offsetLeft
-          var canvasOffsetTop = this.$refs.canvasChartBarLine.offsetTop
+          var canvasOffsetLeft = this.$refs.canvasBarLineChart.offsetLeft
+          var canvasOffsetTop = this.$refs.canvasBarLineChart.offsetTop
           // 当前位置 x y
           var currentDataX = currentData.x
           var currentDataY = currentData.y
@@ -241,8 +291,8 @@ export default {
           const EclientWidth = tooltipsElement.clientWidth / 2
           const EclientHeight = tooltipsElement.clientHeight / 2
           // 画布宽高
-          const canvasWidth = this.$refs.canvasChartBarLine.clientWidth
-          const canvasHeight = this.$refs.canvasChartBarLine.clientHeight
+          const canvasWidth = this.$refs.canvasBarLineChart.clientWidth
+          const canvasHeight = this.$refs.canvasBarLineChart.clientHeight
           // 处理边界问题
           if (currentDataX > canvasOffsetLeft && currentDataX < EclientWidth) { // 低于左上角
             tooltipsElement.style.left = 10 + 'px'
@@ -251,7 +301,7 @@ export default {
             // x,y上边和左上角
             tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
             tooltipsElement.style.top = 0 + 'px'
-          } else if (currentDataY > canvasOffsetTop && (currentDataY > (canvasHeight - EclientHeight))) {
+          } else if (currentDataY > canvasOffsetTop && currentDataY > canvasHeight - EclientHeight) {
             // 超出Y轴上方
             tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
             tooltipsElement.style.top = 0 + 'px'
@@ -260,7 +310,7 @@ export default {
             tooltipsElement.style.left = canvasWidth - tooltipsElement.clientWidth - 20 + 'px'
             tooltipsElement.style.top = currentDataY - EclientHeight + 'px'
           } else if (currentDataX < tooltipsElement.clientWidth && currentDataY > canvasHeight - EclientHeight) {
-            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - tooltipsElement.clientWidth - 20 + 'px'
+            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth - 20 + 'px'
             tooltipsElement.style.top = canvasOffsetTop + currentDataY - EclientHeight + 'px'
           } else {
             tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
@@ -309,7 +359,6 @@ export default {
       cxt.save()
       cxt.translate(sx, sy)
       // 绘制圆角矩形的各个边
-      // drawRoundRectPath(cxt, width, height, radius);
       cxt.beginPath(0)
       // 从右下角顺时针绘制，弧度从0到1/2PI
       cxt.arc(width - radius, height - radius, radius, 0, Math.PI / 2)
