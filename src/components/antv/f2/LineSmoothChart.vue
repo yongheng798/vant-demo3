@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-13 11:27:46
- * @LastEditTime: 2020-07-14 15:57:19
+ * @LastEditTime: 2020-07-14 18:59:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\LineSmoothChart.vue
 -->
 <template>
   <div class="chart-containner">
-    <h3>折线图-线条平滑</h3>
+    <h3>折线图-线条平滑有断点</h3>
     <canvas :id="`lineSmoothChart${Uid}`" ref="lineSmoothChart" />
   </div>
 </template>
@@ -45,10 +45,10 @@ export default {
         value: 500
       }, {
         day: '周五',
-        value: 490
+        value: null
       }, {
         day: '周六',
-        value: 600
+        value: 700
       }, {
         day: '周日',
         value: 900
@@ -96,7 +96,7 @@ export default {
           return textCfg
         }
       })
-      chart.line().position('day*value').shape('smooth')
+      chart.line({ generatePoints: true, startOnZero: false, connectNulls: false }).position('day*value').shape('smooth')
       chart.point().position('day*value').style({
         stroke: '#fff',
         lineWidth: 1

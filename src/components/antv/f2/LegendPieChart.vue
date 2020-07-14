@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-14 17:48:05
- * @LastEditTime: 2020-07-14 18:20:31
+ * @LastEditTime: 2020-07-14 18:51:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\LegendPieChart.vue
@@ -73,14 +73,14 @@ export default {
           name: obj.assetType,
           value: ' ' + obj.percent + '%',
           marker: {
-            // symbol: 'square',
-            fill: colorMap[obj.assetType]
-            // r: 10
+            symbol: 'square',
+            fill: colorMap[obj.assetType],
+            r: 10
           }
         }
         legendItems.push(item)
       })
-      console.log('legendItems===', legendItems)
+      console.log('legendItems===', legendItems, data)
       chart.source(data, {
         percent: {
           formatter: function formatter(val) {

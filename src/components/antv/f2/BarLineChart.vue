@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-14 15:55:59
+ * @LastEditTime: 2020-07-14 19:00:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -396,7 +396,7 @@ export default {
         baseLegendObj[key].marker = this.fillRoundRect
         legendItems.push(baseLegendObj[key])
       }
-      // console.log('legendItems===', legendItems)
+      console.log('barline999999999 legendItems===', legendItems)
       return legendItems
     },
     // Y轴刻度数据
