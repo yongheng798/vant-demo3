@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-14 15:45:48
- * @LastEditTime: 2020-07-14 15:48:39
+ * @LastEditTime: 2020-07-14 16:52:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\RelationChart.vue
@@ -14,89 +14,14 @@
 </template>
 
 <script>
-import '@antv/data-set'
-const DataSet = window.DataSet
+import * as DataSet from '@antv/data-set'
+// const DataSet = window.DataSet
+// import { View } from '@antv/data-set'
 
-const data = {
-  name: 'root',
-  children: [{
-    name: '分类 1',
-    value: 560
-  }, {
-    name: '分类 2',
-    value: 500
-  }, {
-    name: '分类 3',
-    value: 150
-  }, {
-    name: '分类 4',
-    value: 140
-  }, {
-    name: '分类 5',
-    value: 115
-  }, {
-    name: '分类 6',
-    value: 95
-  }, {
-    name: '分类 7',
-    value: 90
-  }, {
-    name: '分类 8',
-    value: 75
-  }, {
-    name: '分类 9',
-    value: 98
-  }, {
-    name: '分类 10',
-    value: 60
-  }, {
-    name: '分类 11',
-    value: 45
-  }, {
-    name: '分类 12',
-    value: 40
-  }, {
-    name: '分类 13',
-    value: 40
-  }, {
-    name: '分类 14',
-    value: 35
-  }, {
-    name: '分类 15',
-    value: 40
-  }, {
-    name: '分类 16',
-    value: 40
-  }, {
-    name: '分类 17',
-    value: 40
-  }, {
-    name: '分类 18',
-    value: 30
-  }, {
-    name: '分类 19',
-    value: 28
-  }, {
-    name: '分类 20',
-    value: 16
-  }]
-}
-const dv = new DataSet.DataView()
-dv.source(data, {
-  type: 'hierarchy'
-}).transform({
-  field: 'value',
-  type: 'hierarchy.treemap',
-  tile: 'treemapResquarify',
-  as: ['x', 'y']
-})
-const nodes = dv.getAllNodes()
-nodes.map(function(node) {
-  node.name = node.data.name
-  node.value = node.data.value
-  return node
-})
-
+// const {
+//   Shape,
+//   Util
+// } = this.$F2
 export default {
   name: 'RelationChart',
   data() {
@@ -114,6 +39,89 @@ export default {
       })
     },
     createrelationChart() {
+      const dv = new DataSet.DataView()
+
+      const data = {
+        name: 'root',
+        children: [{
+          name: '分类 1',
+          value: 560
+        }, {
+          name: '分类 2',
+          value: 500
+        }, {
+          name: '分类 3',
+          value: 150
+        }, {
+          name: '分类 4',
+          value: 140
+        }, {
+          name: '分类 5',
+          value: 115
+        }, {
+          name: '分类 6',
+          value: 95
+        }, {
+          name: '分类 7',
+          value: 90
+        }, {
+          name: '分类 8',
+          value: 75
+        }, {
+          name: '分类 9',
+          value: 98
+        }, {
+          name: '分类 10',
+          value: 60
+        }, {
+          name: '分类 11',
+          value: 45
+        }, {
+          name: '分类 12',
+          value: 40
+        }, {
+          name: '分类 13',
+          value: 40
+        }, {
+          name: '分类 14',
+          value: 35
+        }, {
+          name: '分类 15',
+          value: 40
+        }, {
+          name: '分类 16',
+          value: 40
+        }, {
+          name: '分类 17',
+          value: 40
+        }, {
+          name: '分类 18',
+          value: 30
+        }, {
+          name: '分类 19',
+          value: 28
+        }, {
+          name: '分类 20',
+          value: 16
+        }]
+      }
+      // eslint-disable-next-line no-undef
+
+      dv.source(data, {
+        type: 'hierarchy'
+      }).transform({
+        field: 'value',
+        type: 'hierarchy.treemap',
+        tile: 'treemapResquarify',
+        as: ['x', 'y']
+      })
+      const nodes = dv.getAllNodes()
+      nodes.map(function(node) {
+        node.name = node.data.name
+        node.value = node.data.value
+        return node
+      })
+
       // Step 1: 创建 Chart 对象
       const chart = new this.$F2.Chart({
         id: 'relationChart' + this.Uid,

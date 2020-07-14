@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-14 15:52:28
+ * @LastEditTime: 2020-07-14 18:28:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
@@ -22,13 +22,17 @@
       <van-tab title="雷达图">
         <indexRadarChart />
       </van-tab>
-      <van-tab title="关系图">
+      <!-- <van-tab title="关系图">
         <indexRelationChart />
-      </van-tab>
+      </van-tab> -->
       <van-tab title="漏斗图">
         <indexFunnelChart />
       </van-tab>
-      <van-tab title="功能组件">内容 3</van-tab>
+      <van-tab title="功能组件">
+        <indexTooltipChart />
+        <indexLegendChart />
+        <indexGuideChart />
+      </van-tab>
       <van-tab title="混合图形">
         <indexMix />
       </van-tab>
@@ -46,7 +50,10 @@ import indexBarColumnChart from '@/views/antv/f2/indexBarColumnChart'
 import indexPieChart from '@/views/antv/f2/indexPieChart'
 import indexRadarChart from '@/views/antv/f2/indexRadarChart'
 import indexFunnelChart from '@/views/antv/f2/indexFunnelChart'
-import indexRelationChart from '@/views/antv/f2/indexRelationChart'
+// import indexRelationChart from '@/views/antv/f2/indexRelationChart'
+import indexTooltipChart from '@/views/antv/f2/indexTooltipChart'
+import indexLegendChart from '@/views/antv/f2/indexLegendChart'
+import indexGuideChart from '@/views/antv/f2/indexGuideChart'
 
 import indexMix from '@/views/antv/f2/indexMix'
 
@@ -61,7 +68,10 @@ export default {
     indexPieChart,
     indexRadarChart,
     indexFunnelChart,
-    indexRelationChart,
+    // indexRelationChart,
+    indexTooltipChart,
+    indexLegendChart,
+    indexGuideChart,
     indexMix
   },
   data() {
