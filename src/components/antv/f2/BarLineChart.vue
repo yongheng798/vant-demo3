@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-14 12:19:13
+ * @LastEditTime: 2020-07-14 15:55:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -81,7 +81,7 @@ export default {
       // 创建图形
       this.chart = new this.$F2.Chart({
         id: 'barLineChart' + this.Uid,
-        pixelRatio: window.devicePixelRatio,
+        // pixelRatio: window.devicePixelRatio,
         padding: ['50', 'auto', '50', 'auto'],
         width: chartWdith,
         height: 300

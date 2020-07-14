@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-13 10:45:37
- * @LastEditTime: 2020-07-13 11:26:00
+ * @LastEditTime: 2020-07-14 15:56:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BaseLine.vue
@@ -56,7 +56,7 @@ export default {
       // Step 1: 创建 Chart 对象
       const chart = new this.$F2.Chart({
         id: 'baseLineChart' + this.Uid,
-        pixelRatio: window.devicePixelRatio, // 指定分辨率
+        // pixelRatio: window.devicePixelRatio, // 指定分辨率
         padding: ['auto', 'auto', 90, 'auto'],
         width: window.innerWidth - 20,
         height: 300

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-13 14:06:09
- * @LastEditTime: 2020-07-13 14:10:36
+ * @LastEditTime: 2020-07-14 15:57:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarStackChart.vue
@@ -37,7 +37,7 @@ export default {
       // Step 1: 创建 Chart 对象
       const chart = new this.$F2.Chart({
         id: 'barStackChart' + this.Uid,
-        pixelRatio: window.devicePixelRatio, // 指定分辨率
+        // pixelRatio: window.devicePixelRatio, // 指定分辨率
         padding: ['auto', 'auto', 90, 'auto'],
         width: window.innerWidth - 20,
         height: 300

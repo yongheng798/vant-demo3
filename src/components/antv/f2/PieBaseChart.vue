@@ -37,7 +37,7 @@ export default {
       // Step 1: 创建 Chart 对象
       const chart = new this.$F2.Chart({
         id: 'PieBaseChart' + this.Uid,
-        pixelRatio: window.devicePixelRatio, // 指定分辨率
+        // pixelRatio: window.devicePixelRatio, // 指定分辨率
         padding: ['auto', 'auto', 90, 'auto'],
         width: window.innerWidth - 20,
         height: 300

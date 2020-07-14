@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-14 10:45:02
- * @LastEditTime: 2020-07-14 11:12:33
+ * @LastEditTime: 2020-07-14 16:01:24
  * @LastEditors: Please set LastEditors
  * @Description: F2的按需引入，所有引入都建议通过f2目录下的lib引入,ES6的import引入方式，目前所有需要引入的都在里面，官网的demo另外一个文件
  * @FilePath: \vant-demo3\src\until\initF2Import.js
@@ -53,3 +53,23 @@ F2.Chart.plugins.register([Tooltip, Legend, Guide, Animation, ScrollBar, PieLabe
 Vue.prototype.$F2 = F2
 // 打印全局配置，查看默认值
 console.log(F2.Global)
+// 全局配置,一旦全局配置，则后续的demo没有设置则采用全局设置，如果子组件设置对应的，则采用子组件的，类似于vue 的mixin混入
+F2.Global.setTheme({
+  colors: [
+    '#F04864',
+    '#D66BCA',
+    '#8543E0',
+    '#8E77ED',
+    '#3436C7',
+    '#737EE6',
+    '#223273',
+    '#7EA2E6'
+  ],
+  pixelRatio: window.devicePixelRatio
+  // guide: {
+  //   line: {
+  //     stroke: '#F04864',
+  //     lineWidth: 2
+  //   }
+  // }
+})
