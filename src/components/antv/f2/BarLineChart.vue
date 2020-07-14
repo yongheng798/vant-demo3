@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-13 15:15:13
+ * @LastEditTime: 2020-07-14 12:19:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -211,7 +211,7 @@ export default {
         },
         limitInPlot: true // 是否将 guide 元素限制在绘图区域图，默认为 false
       })
-
+      // 辅助单位
       this.chart.guide().text({
         position: ['max', 'max'],
         content: chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%',
@@ -227,7 +227,7 @@ export default {
       const _this = this
       const tooltipsElement = this.$refs.chartTips
       // tooltip点击提示
-      console.log('===========', this.chart.tooltip())
+      console.log('===========', this.chart)
       this.chart.tooltip({
         alwaysShow: false, // 当移出触发区域，是否仍显示提示框内容，默认为 false，移出触发区域 tooltip 消失，设置为 true 可以保证一直显示提示框内容
         offsetX: 0, // x 方向的偏移
@@ -239,7 +239,7 @@ export default {
         crosshairsStyle: {
           stroke: 'rgba(0, 255, 255, 0.75)',
           lineWidth: 1.5,
-          lineDesh: ''
+          lineDash: ''
         }, // 配置辅助线的样式
         // showTooltipMarker: false, // 是否显示 tooltipMarker
         // showItemMarker: false, // 是否展示每条记录项前面的 marker

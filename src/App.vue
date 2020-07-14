@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-13 11:57:45
+ * @LastEditTime: 2020-07-13 16:50:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\App.vue
@@ -11,9 +11,9 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/canvas">Canvas</router-link> |
-      <router-link to="/vant">Vant</router-link> |
       <router-link to="/antvF2">AntV F2</router-link> |
-      <router-link to="/form">Form</router-link>
+      <!-- <router-link to="/vant">Vant</router-link> | -->
+      <router-link to="/form">Vant Form</router-link>
     </div>
     <transition :name="transitionName">
       <keep-alive :include="keepAlivePages">

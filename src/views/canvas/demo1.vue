@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-12 11:58:53
- * @LastEditTime: 2020-07-12 16:27:09
+ * @LastEditTime: 2020-07-14 09:00:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\canvas\demo1.vue
@@ -45,7 +45,7 @@ export default {
       // 绘制一个矩形
       this.canvasRect(ctx)
       // 绘制一个圆角矩形
-      this.fillRoundRect(30, 280, 5, ctx, '', 100, 50, 5, '#f9bb4b')
+      this.fillRoundRect(30, 280, 5, ctx, 100, 50, 5, '#f9bb4b')
 
       // 再画一个圆形
       this.canvasRound(ctx)
@@ -108,7 +108,7 @@ export default {
       ctx.stroke() // 描边路径
     },
     // 应用案例，绘制一个圆角的矩形
-    fillRoundRect(x, y, r, ctx, marker, width = 13, height = 8, radius = 2, fillColor) {
+    fillRoundRect(x, y, r, ctx, width = 13, height = 8, radius = 2, fillColor) {
       // 圆的直径必然要小于矩形的宽高
       if (2 * radius > width || 2 * radius > height) { return false }
       // 清除之前画过的
