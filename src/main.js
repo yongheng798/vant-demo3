@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-14 10:55:41
+ * @LastEditTime: 2020-07-15 15:48:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\main.js
@@ -26,6 +26,13 @@ import './until/initF2Import' // 通过E66 import export按需引入，开发中
 // 移动端vconsole
 // import Vconsole from 'vconsole' 移动端console
 // new Vconsole()
+
+// 路由进度条
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+// 简单配置
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 // 路由动画
 Vue.prototype.transitionName = 'slide-left'
 
@@ -54,6 +61,15 @@ Vue.prototype.goBack = (n = -1) => {
     router.go(n)
   }
 }
+
+// 路由进度条
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+router.afterEach(() => {
+  NProgress.done()
+})
 
 Vue.config.productionTip = false
 

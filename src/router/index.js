@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-15 09:01:43
+ * @LastEditTime: 2020-07-15 12:41:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\router\index.js

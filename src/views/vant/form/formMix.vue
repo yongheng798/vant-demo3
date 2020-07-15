@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:24
- * @LastEditTime: 2020-07-10 09:26:41
+ * @LastEditTime: 2020-07-15 15:51:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\form\FormMix.vue
@@ -166,6 +166,7 @@ import { Form, Field, Button, Switch, Calendar, Checkbox, CheckboxGroup, Stepper
 import { areaList } from '../../../api/json/area'
 
 export default {
+  name: 'FormMix',
   components: {
     [Form.name]: Form,
     [Field.name]: Field,
@@ -211,6 +212,16 @@ export default {
       showCalendar: false,
       searchResult: []
     }
+  },
+  watch: {
+    $route(to, from) {
+      if (from.path === '/form') {
+        console.log('从vant进来的')
+      }
+    }
+  },
+  mounted() {
+    console.log('this.$route', this.$route)
   },
   methods: {
     // 校验函数返回 true 表示校验通过，false 表示不通过

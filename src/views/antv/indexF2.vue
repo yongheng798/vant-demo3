@@ -1,48 +1,52 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-14 18:28:27
+ * @LastEditTime: 2020-07-15 15:19:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
 -->
 <template>
   <div class="constainer">
-    <van-tabs type="card" animated swipeable>
-      <van-tab title="折线图">
-        <indexLineChart />
-      </van-tab>
-      <van-tab title="面积图">
-        <indexAreaChart />
-      </van-tab>
-      <van-tab title="柱形图">
-        <indexBarColumnChart />
-      </van-tab>
-      <van-tab title="饼图"><indexPieChart /></van-tab>
-      <van-tab title="雷达图">
-        <indexRadarChart />
-      </van-tab>
-      <!-- <van-tab title="关系图">
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-tabs type="card" animated swipeable>
+        <van-tab title="折线图">
+          <indexLineChart />
+        </van-tab>
+        <van-tab title="面积图">
+          <indexAreaChart />
+        </van-tab>
+        <van-tab title="柱形图">
+          <indexBarColumnChart />
+        </van-tab>
+        <van-tab title="饼图"><indexPieChart /></van-tab>
+        <van-tab title="雷达图">
+          <indexRadarChart />
+        </van-tab>
+        <!-- <van-tab title="关系图">
         <indexRelationChart />
       </van-tab> -->
-      <van-tab title="漏斗图">
-        <indexFunnelChart />
-      </van-tab>
-      <van-tab title="功能组件">
-        <indexTooltipChart />
-        <indexLegendChart />
-        <indexGuideChart />
-      </van-tab>
-      <van-tab title="混合图形">
-        <indexMix />
-      </van-tab>
-    </van-tabs>
-
+        <van-tab title="漏斗图">
+          <indexFunnelChart />
+        </van-tab>
+        <van-tab title="功能组件">
+          <indexTooltipChart />
+          <indexLegendChart />
+          <indexGuideChart />
+        </van-tab>
+        <van-tab title="自定义图形">
+          <indexCustomShapeChart />
+        </van-tab>
+        <van-tab title="混合图形">
+          <indexMix />
+        </van-tab>
+      </van-tabs>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script>
-import { Tab, Tabs } from 'vant'
+import { Tab, Tabs, PullRefresh } from 'vant'
 
 import indexLineChart from '@/views/antv/f2/indexLineChart'
 import indexAreaChart from '@/views/antv/f2/indexAreaChart'
@@ -54,14 +58,19 @@ import indexFunnelChart from '@/views/antv/f2/indexFunnelChart'
 import indexTooltipChart from '@/views/antv/f2/indexTooltipChart'
 import indexLegendChart from '@/views/antv/f2/indexLegendChart'
 import indexGuideChart from '@/views/antv/f2/indexGuideChart'
+import indexCustomShapeChart from '@/views/antv/f2/indexCustomShapeChart'
 
 import indexMix from '@/views/antv/f2/indexMix'
+
+import { vtoast } from '@/until/toast'
 
 export default {
   name: 'IndexF2',
   components: {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
+    [PullRefresh.name]: PullRefresh,
+    // [Toast.name]: Toast,
     indexLineChart,
     indexAreaChart,
     indexBarColumnChart,
@@ -72,13 +81,25 @@ export default {
     indexTooltipChart,
     indexLegendChart,
     indexGuideChart,
+    indexCustomShapeChart,
     indexMix
   },
   data() {
     return {
+      refreshCount: 0,
+      isLoading: false
     }
   },
   methods: {
+
+    onRefresh() {
+      setTimeout(() => {
+        vtoast(`刷新${this.refreshCount}次成功`)
+        this.isLoading = false
+        this.refreshCount++
+      }, 1000)
+    },
+
     // 组件内路由方法
     beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用

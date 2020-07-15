@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-13 11:19:34
+ * @LastEditTime: 2020-07-15 15:46:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -50,9 +50,9 @@
         text="在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准。"
       />
       <!-- 九宫格 -->
-      <van-grid :column-num="3">
+      <!-- <van-grid :column-num="3">
         <van-grid-item v-for="value in 9" :key="value" icon="photo-o" text="文字" />
-      </van-grid>
+      </van-grid> -->
       <!-- 手风琴 -->
       <van-collapse v-model="activeName" accordion>
         <van-collapse-item title="标题1" name="1">内容</van-collapse-item>
@@ -80,6 +80,7 @@
 import { NavBar, Tabbar, TabbarItem, Swipe, Search, SwipeItem, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
 
 export default {
+  name: 'Index',
   components: {
     [NavBar.name]: NavBar,
     [Tabbar.name]: Tabbar,
@@ -102,9 +103,8 @@ export default {
   },
   data() {
     return {
+      value: '',
       active: 'home',
-      value: [],
-      values2: [],
       dropdownValue: 0,
       switch1: false,
       switch2: false,
@@ -116,6 +116,10 @@ export default {
       ],
       activeName: '1'
     }
+  },
+  mounted() {
+    console.log('this.$route====', this.$route)
+    console.log('this.$router====', this.$router)
   },
   methods: {
     onClickLeft() {
