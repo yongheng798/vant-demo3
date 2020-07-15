@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-15 10:31:27
+ * @LastEditTime: 2020-07-15 10:40:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -143,35 +143,6 @@ export default {
       this.$nextTick(() => {
         this.chart.repaint()
       })
-      // 刻度线
-      this.chart.axis('avgScore', {
-        grid: {
-          lineDash: null,
-          stroke: '#4c4d50'
-        },
-        line: null,
-        tickLine: null,
-        label: (text, index, total) => {
-          const cfg = {}
-          cfg.fill = 'rgba(255,255,255,0.7)'
-          return cfg
-        }
-      })
-
-      // 刻度线
-      this.chart.axis('score', {
-        grid: {
-          lineDash: null,
-          stroke: '#4c4d50'
-        },
-        line: null,
-        tickLine: null,
-        label: (text, index, total) => {
-          const cfg = {}
-          cfg.fill = 'rgba(255,255,255,0.7)'
-          return cfg
-        }
-      })
 
       this.chart.axis('name', {
         label: (text, index, total) => {
@@ -198,32 +169,7 @@ export default {
           fontWeight: 'bold' // 图例项 value 值文本样式
         }
       })
-      // 辅助单位
-      this.chart.guide().text({
-        position: ['min', 'max'],
-        content: chartLegendItems.length > 0 ? chartLegendItems[0].unit : '分',
-        offsetX: -18,
-        offsetY: -22,
-        style: { // 文本的图形样式属性
-          fill: 'rgba(255,255,255,0.7)', // 文本颜色
-          fontSize: '12', // 文本大小
-          fontWeight: '200' // 文本粗细
-        },
-        limitInPlot: true // 是否将 guide 元素限制在绘图区域图，默认为 false
-      })
-      // 辅助单位
-      this.chart.guide().text({
-        position: ['max', 'max'],
-        content: chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%',
-        offsetX: 8,
-        offsetY: -22,
-        style: { // 文本的图形样式属性
-          fill: 'rgba(255,255,255,0.7)', // 文本颜色
-          fontSize: '12', // 文本大小
-          fontWeight: '200' // 文本粗细
-        },
-        limitInPlot: true // 是否将 guide 元素限制在绘图区域图，默认为 false
-      })
+
       const _this = this
       const tooltipsElement = this.$refs.chartTips
       // tooltip点击提示
@@ -325,15 +271,80 @@ export default {
         }
       })
       // 渲染的类型和颜色等设置
-      // 柱形图
-      this.chart.interval({ sortable: false, startOnZero: false }).position('name*score').color('#6195ff').size(8).style({ radius: [2.5, 2.5, 0] })
-      // 折线图
-      this.chart.line({ sortable: false, generatePoints: true, startOnZero: false, connectNulls: false }).position('name*avgScore').color('#f9bb4b').shape('smooth').size(3)
-      this.chart.point({ sortable: false, generatePoints: true }).position('name*avgScore').size(3).style('around', {
-        fill: '#f9bb4b',
-        stroke: '#f9bb4b',
-        lineWidth: 3
-      })
+
+      if (Array.isArray(chartLegendItems) && chartLegendItems.length > 0) {
+        // 柱形图
+        this.chart.interval({ sortable: false, startOnZero: false }).position('name*score').color('#6195ff').size(8).style({ radius: [2.5, 2.5, 0] })
+        if (chartLegendItems.length < 2) {
+          // 折线图解决柱形图平移数据丢失问题
+          this.chart.line({ sortable: false, generatePoints: true, startOnZero: false, connectNulls: false }).position('name*score').style({ opacity: 0 }).shape('smooth').size(3).color('#ffffff')
+        }
+        // 辅助单位
+        this.chart.guide().text({
+          position: ['min', 'max'],
+          content: chartLegendItems.length > 0 ? chartLegendItems[0].unit : '分',
+          offsetX: -18,
+          offsetY: -22,
+          style: { // 文本的图形样式属性
+            fill: 'rgba(255,255,255,0.7)', // 文本颜色
+            fontSize: '12', // 文本大小
+            fontWeight: '200' // 文本粗细
+          },
+          limitInPlot: true // 是否将 guide 元素限制在绘图区域图，默认为 false
+        })
+        // 刻度线
+        this.chart.axis('score', {
+          grid: {
+            lineDash: null,
+            stroke: '#4c4d50'
+          },
+          line: null,
+          tickLine: null,
+          label: (text, index, total) => {
+            const cfg = {}
+            cfg.fill = 'rgba(255,255,255,0.7)'
+            return cfg
+          }
+        })
+      }
+
+      if (Array.isArray(chartLegendItems) && chartLegendItems.length > 1) {
+        // 折线图
+        this.chart.line({ sortable: false, generatePoints: true, startOnZero: false, connectNulls: false }).position('name*avgScore').color('#f9bb4b').shape('smooth').size(3)
+        this.chart.point({ sortable: false, generatePoints: true }).position('name*avgScore').size(3).style('around', {
+          fill: '#f9bb4b',
+          stroke: '#f9bb4b',
+          lineWidth: 3
+        })
+        // 辅助单位
+        this.chart.guide().text({
+          position: ['max', 'max'],
+          content: chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%',
+          offsetX: 8,
+          offsetY: -22,
+          style: { // 文本的图形样式属性
+            fill: 'rgba(255,255,255,0.7)', // 文本颜色
+            fontSize: '12', // 文本大小
+            fontWeight: '200' // 文本粗细
+          },
+          limitInPlot: true // 是否将 guide 元素限制在绘图区域图，默认为 false
+        })
+        // 刻度线
+        this.chart.axis('avgScore', {
+          grid: {
+            lineDash: null,
+            stroke: '#4c4d50'
+          },
+          line: null,
+          tickLine: null,
+          label: (text, index, total) => {
+            const cfg = {}
+            cfg.fill = 'rgba(255,255,255,0.7)'
+            return cfg
+          }
+        })
+      }
+
       // 平移
       if (chartBaseData.chartAllData.length > 7) {
         this.chart.interaction('pan', {
