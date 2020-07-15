@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-14 19:00:37
+ * @LastEditTime: 2020-07-15 10:31:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -255,8 +255,6 @@ export default {
         onShow: (ev) => {
           var currentData = ev.items[0]
           console.log('tooltip onShow', ev)
-          var scoreCurrent = isNaN(currentData.origin.score) ? '-' : currentData.origin.score.toFixed(2)
-          var avgScoreCurrent = isNaN(currentData.origin.avgScore) ? '-' : currentData.origin.avgScore.toFixed(2)
 
           var tooolTitleStyle = `color: rgba(255, 255, 255, 0.7); line-height: 1.5; font-size: 14px; word-wrap: break-word; font-weight: normal;`
           var itemsStyle = `display: flex; justify-content: space-between; flex-direction: row; color: rgba(255, 255, 255, 0.7); font-size: 13px; line-height:1.5; position: relative;`
@@ -265,20 +263,24 @@ export default {
           var itemsUnitStyle = ` text-align: right; margin-left:10px`
 
           var titleHtml = `<h3 style="${tooolTitleStyle}">${currentData.origin.name.slice(5)}</h3>`
-
-          var scoreHtml = `<div style="${itemsStyle}">
+          if (chartLegendItems.length > 0) {
+            var scoreCurrent = isNaN(currentData.origin.score) ? '-' : currentData.origin.score.toFixed(2)
+            var scoreHtml = `<div style="${itemsStyle}">
             <i style="${toolDotStyle} background-color:${chartLegendItems.length > 0 ? chartLegendItems[0].fill : ''}"></i>
             <div style="${itemsUnitStyle}">${chartLegendItems.length > 0 ? chartLegendItems[0].unit : '分'}</div>
             <div style="${itemsTitleStyle}">${scoreCurrent}</div>
           </div>`
-
-          var avgScoreHtml = `<div style="${itemsStyle}">
-            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 0 ? chartLegendItems[1].fill : ''}"></i>
+          }
+          if (chartLegendItems.length > 1) {
+            var avgScoreCurrent = isNaN(currentData.origin.avgScore) ? '-' : currentData.origin.avgScore.toFixed(2)
+            var avgScoreHtml = `<div style="${itemsStyle}">
+            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 1 ? chartLegendItems[1].fill : ''}"></i>
             <div style="${itemsUnitStyle}">${chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%'}</div>
             <div style="${itemsTitleStyle}">${avgScoreCurrent}</div>
           </div>`
+          }
 
-          tooltipsElement.innerHTML = titleHtml + (chartLegendItems.length > 0 ? avgScoreHtml : '') + (chartLegendItems.length > 1 ? scoreHtml : '')
+          tooltipsElement.innerHTML = titleHtml + (chartLegendItems.length > 0 ? scoreHtml : '') + (chartLegendItems.length > 1 ? avgScoreHtml : '')
           tooltipsElement.style.opacity = '1'
           tooltipsElement.style.display = 'inline-block'
           // 画布初始化边距 0 0
@@ -339,7 +341,9 @@ export default {
             _this.chart.repaint()
           },
           onProcess(ev) {
-            _this.chart.repaint()
+            setTimeout(() => {
+              _this.chart.repaint()
+            }, 100)
           },
           onEnd(ev) {
             _this.chart.repaint()

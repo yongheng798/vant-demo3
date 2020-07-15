@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-15 08:48:38
- * @LastEditTime: 2020-07-15 09:40:21
+ * @LastEditTime: 2020-07-15 10:32:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarColumnPanChart.vue
@@ -204,13 +204,109 @@ export default {
         // })
       }
       const _this = this
-      // const tooltipsElement = this.$refs.chartTips
+      const tooltipsElement = this.$refs.chartTips
       // tooltip点击提示
       console.log('===========', this.chart)
+      this.chart.tooltip({
+        alwaysShow: false, // 当移出触发区域，是否仍显示提示框内容，默认为 false，移出触发区域 tooltip 消失，设置为 true 可以保证一直显示提示框内容
+        offsetX: 0, // x 方向的偏移
+        offsetY: 0, // y 方向的偏移
+        triggerOn: ['click'], // tooltip 出现的触发行为，可自定义，用法同 legend 的 triggerOn
+        triggerOff: 'touchend', // 消失的触发行为，可自定义
+        showTitle: true, // 是否展示标题，默认不展示
+        showCrosshairs: true, // 是否显示辅助线，点图、路径图、线图、面积图默认展示
+        crosshairsStyle: {
+          stroke: 'rgba(0, 255, 255, 0.75)',
+          lineWidth: 1.5,
+          lineDash: ''
+        }, // 配置辅助线的样式
+        // showTooltipMarker: false, // 是否显示 tooltipMarker
+        // showItemMarker: false, // 是否展示每条记录项前面的 marker
+        itemMarkerStyle: {
+          radius: 7,
+          symbol: 'circle',
+          lineWidth: 2,
+          stroke: '#fff'
+        }, // 每条记录项前面的 marker 的样式配置
+        custom: true, // 是否自定义 tooltip 提示框
+        crosshairsType: 'y', // 辅助线的种类
+        snap: true, // 是否将辅助线准确定位至数据点
+        onShow: (ev) => {
+          var currentData = ev.items[0]
+          console.log('tooltip onShow', ev)
+
+          var tooolTitleStyle = `color: rgba(255, 255, 255, 0.7); line-height: 1.5; font-size: 14px; word-wrap: break-word; font-weight: normal;`
+          var itemsStyle = `display: flex; justify-content: space-between; flex-direction: row; color: rgba(255, 255, 255, 0.7); font-size: 13px; line-height:1.5; position: relative;`
+          var toolDotStyle = `position: absolute; top: 50%; margin-top: -2px; width: 4px; height: 4px; display: inline-block; border-radius: 50%;`
+          var itemsTitleStyle = ` margin-left:10px`
+          var itemsUnitStyle = ` text-align: right; margin-left:10px`
+
+          var titleHtml = `<h3 style="${tooolTitleStyle}">${currentData.origin.name.slice(5)}</h3>`
+          if (chartLegendItems.length > 0) {
+            var scoreCurrent = isNaN(currentData.origin.score) ? '-' : currentData.origin.score.toFixed(2)
+            var scoreHtml = `<div style="${itemsStyle}">
+            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 0 ? chartLegendItems[0].fill : ''}"></i>
+            <div style="${itemsUnitStyle}">${chartLegendItems.length > 0 ? chartLegendItems[0].unit : '分'}</div>
+            <div style="${itemsTitleStyle}">${scoreCurrent}</div>
+          </div>`
+          }
+          if (chartLegendItems.length > 1) {
+            var avgScoreCurrent = isNaN(currentData.origin.avgScore) ? '-' : currentData.origin.avgScore.toFixed(2)
+            var avgScoreHtml = `<div style="${itemsStyle}">
+            <i style="${toolDotStyle} background-color:${chartLegendItems.length > 1 ? chartLegendItems[1].fill : ''}"></i>
+            <div style="${itemsUnitStyle}">${chartLegendItems.length > 1 ? chartLegendItems[1].unit : '%'}</div>
+            <div style="${itemsTitleStyle}">${avgScoreCurrent}</div>
+          </div>`
+          }
+
+          tooltipsElement.innerHTML = titleHtml + (chartLegendItems.length > 0 ? scoreHtml : '') + (chartLegendItems.length > 1 ? avgScoreHtml : '')
+          tooltipsElement.style.opacity = '1'
+          tooltipsElement.style.display = 'inline-block'
+          // 画布初始化边距 0 0
+          var canvasOffsetLeft = this.$refs.canvasBarLineChart.offsetLeft
+          var canvasOffsetTop = this.$refs.canvasBarLineChart.offsetTop
+          // 当前位置 x y
+          var currentDataX = currentData.x
+          var currentDataY = currentData.y
+          // 元素中心点
+          const EclientWidth = tooltipsElement.clientWidth / 2
+          const EclientHeight = tooltipsElement.clientHeight / 2
+          // 画布宽高
+          const canvasWidth = this.$refs.canvasBarLineChart.clientWidth
+          const canvasHeight = this.$refs.canvasBarLineChart.clientHeight
+          // 处理边界问题
+          if (currentDataX > canvasOffsetLeft && currentDataX < EclientWidth) { // 低于左上角
+            tooltipsElement.style.left = 10 + 'px'
+            tooltipsElement.style.top = canvasOffsetTop + currentDataY - EclientHeight + 'px'
+          } else if (currentDataY > canvasOffsetTop && currentDataX < EclientWidth) {
+            // x,y上边和左上角
+            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
+            tooltipsElement.style.top = 0 + 'px'
+          } else if (currentDataY > canvasOffsetTop && currentDataY > canvasHeight - EclientHeight) {
+            // 超出Y轴上方
+            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
+            tooltipsElement.style.top = 0 + 'px'
+          } else if (currentDataX > canvasWidth - tooltipsElement.clientWidth && currentDataY > canvasOffsetTop) {
+            // 超出右上角
+            tooltipsElement.style.left = canvasWidth - tooltipsElement.clientWidth - 20 + 'px'
+            tooltipsElement.style.top = currentDataY - EclientHeight + 'px'
+          } else if (currentDataX < tooltipsElement.clientWidth && currentDataY > canvasHeight - EclientHeight) {
+            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth - 20 + 'px'
+            tooltipsElement.style.top = canvasOffsetTop + currentDataY - EclientHeight + 'px'
+          } else {
+            tooltipsElement.style.left = canvasOffsetLeft + currentDataX - EclientWidth + 'px'
+            tooltipsElement.style.top = canvasOffsetTop + currentDataY - EclientHeight + 'px'
+          }
+        },
+        onHide: (ev) => {
+          tooltipsElement.style.opacity = '0'
+          tooltipsElement.style.display = 'none'
+        }
+      })
       // 渲染的类型和颜色等设置
       // 柱形图
       this.chart.interval({ sortable: false, startOnZero: false }).position('name*score').color('#6195ff').size(8).style({ radius: [2.5, 2.5, 0] })
-      // 折线图
+      // 折线图解决柱形图平移数据丢失问题
       this.chart.line({ sortable: false, generatePoints: true, startOnZero: false, connectNulls: false }).position('name*score').style({ opacity: 0 }).shape('smooth').size(3).color('#ffffff')
       // 平移
       if (chartBaseData.chartAllData.length > 7) {
