@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-15 15:46:20
+ * @LastEditTime: 2020-07-16 14:04:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { NavBar, Tabbar, TabbarItem, Swipe, Search, SwipeItem, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
+import { NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, Search, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
 
 export default {
   name: 'Index',
@@ -116,6 +116,9 @@ export default {
       ],
       activeName: '1'
     }
+  },
+  created() {
+    // this.getRequest('http://mobile.qber.cn/index.php?act=cms_channel&op=channel_b', '').then(res => {})
   },
   mounted() {
     console.log('this.$route====', this.$route)

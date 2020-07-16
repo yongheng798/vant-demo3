@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-15 15:48:21
+ * @LastEditTime: 2020-07-15 17:30:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\main.js
@@ -27,7 +27,7 @@ import './until/initF2Import' // 通过E66 import export按需引入，开发中
 // import Vconsole from 'vconsole' 移动端console
 // new Vconsole()
 
-// 路由进度条
+// 页面加载进度条
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 // 简单配置
@@ -71,6 +71,17 @@ router.afterEach(() => {
   NProgress.done()
 })
 
+// axios请求封装
+import { POST, GET } from './api/axios'
+
+Vue.prototype.postRequest = POST
+Vue.prototype.getRequest = GET
+/*
+post请求
+this.postRequest(url,param).then(res => {})
+get请求
+this.getRequest(url,param).then(res => {})
+*/
 Vue.config.productionTip = false
 
 new Vue({

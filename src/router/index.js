@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-15 12:41:11
+ * @LastEditTime: 2020-07-15 19:16:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\router\index.js
@@ -50,6 +50,11 @@ const routes = [
     path: '/antvF2Test',
     name: 'antvF2Test',
     component: () => import(/* webpackChunkName: "about" */ '../views/antv/f2/indexAntVF2Test.vue')
+  },
+  {
+    path: '/swiper',
+    name: 'swiper',
+    component: () => import(/* webpackChunkName: "about" */ '../views/swiper/index.vue')
   }
 ]
 

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-09 16:03:05
- * @LastEditTime: 2020-07-09 17:12:12
+ * @LastEditTime: 2020-07-16 12:46:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\until\vue.config.js
