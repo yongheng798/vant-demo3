@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 10:48:45
- * @LastEditTime: 2020-07-17 11:36:59
+ * @LastEditTime: 2020-07-17 14:24:02
  * @LastEditors: Please set LastEditors
  * @Description: 正则校验
  * @FilePath: \vant-demo3\src\components\vant\form\RegTest.vue
@@ -65,7 +65,6 @@ export default {
         }, 1000)
       })
     }
-
   }
 }
 </script>
