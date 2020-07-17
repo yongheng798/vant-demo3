@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-17 14:08:59
+ * @LastEditTime: 2020-07-17 19:27:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
@@ -101,15 +101,14 @@
       :value="pickerThreeValue"
       label="多列动态选择器"
       placeholder="多列选择分类"
-      @click="showThreePicker = true"
+      @click="onShowThreePicker"
     />
     <van-popup v-model="showThreePicker" position="bottom">
       <van-picker
-        ref="showThreePicker"
+        ref="showRefThreePicker"
         show-toolbar
         title="多列动态选择器"
         :columns="threeListColumns"
-        :default-index="threeListDefaultIndex"
         @confirm="threeListpickerOnConfirm"
         @cancel="showThreePicker = false"
         @change="onThreeChange"
@@ -118,30 +117,16 @@
   </div>
 </template>
 <script>
-import { Form, Field, Button, Switch, Calendar, Checkbox, CheckboxGroup, Stepper, Rate, Slider, Uploader, Picker, Area, DatetimePicker, Popup, AddressEdit, Toast } from 'vant'
+import { Field, Picker, Popup } from 'vant'
 
 import { cityList, timeDayList, doubleCitys, levelTwoData, levelThreeData } from '@/api/json/vantTestData'
 
 export default {
   name: 'FormMix',
   components: {
-    [Form.name]: Form,
     [Field.name]: Field,
-    [Button.name]: Button,
-    [Switch.name]: Switch,
-    [Calendar.name]: Calendar,
-    [Checkbox.name]: Checkbox,
-    [CheckboxGroup.name]: CheckboxGroup,
-    [Stepper.name]: Stepper,
-    [Rate.name]: Rate,
-    [Slider.name]: Slider,
-    [Uploader.name]: Uploader,
     [Picker.name]: Picker,
-    [Area.name]: Area,
-    [DatetimePicker.name]: DatetimePicker,
-    [Popup.name]: Popup,
-    [AddressEdit.name]: AddressEdit,
-    [Toast.name]: Toast
+    [Popup.name]: Popup
   },
   data() {
     return {
@@ -162,17 +147,17 @@ export default {
       pickerTwoValue: '',
       showTwoPicker: false,
       twoListColumns: [],
-      twoListDefaultIndex: '',
+      twoListDefaultIndex: null,
       // 多列动态选择器
       pickerThreeValue: '',
       showThreePicker: false,
       threeListColumns: [],
-      threeListDefaultIndex: ''
+      threeListDefaultIndex: []
     }
   },
   mounted() {
     console.log('this.$route', this.$route)
-    // 单列筛选器
+    // 单列筛选器,加上默认选中值
     this.cityListNames = cityList.map((val, index) => {
       if (val.selected) {
         this.cityListDefaultIndex = index
@@ -182,17 +167,29 @@ export default {
     })
     // 多列筛选器
     this.timeDayListColumns = timeDayList
-    // this.pickerTimeValue = timeDayList[1]
     this.timeDayListDefaultIndex = 1
+    console.log('this.timeDayListDefaultIndex', this.timeDayListDefaultIndex)
     // 动态筛选器
     this.doubleListColumns = [{ values: Object.keys(doubleCitys) }, { values: doubleCitys['浙江'] }]
     // 两列
-    this.twoListColumns = levelTwoData
-    const bbb = JSON.parse(JSON.stringify(this.twoListColumns).replace(/text/g, 'childName'))
-    const ccc = JSON.parse(JSON.stringify(bbb).replace(/className/g, 'childId'))
-    console.log('this.twoListColumns===更改过后的', ccc)
-    // 多列选择器
+    const handleTwoListData = JSON.parse(JSON.stringify(levelTwoData).replace(/childName/g, 'text'))
+    console.log('handleTwoListData===', handleTwoListData)
+    const handleTwoListDataColumns = JSON.parse(JSON.stringify(handleTwoListData).replace(/childId/g, 'className'))
+
+    console.log('handleTwoListDataColumns===更改过后的', handleTwoListDataColumns)
+    // 赋值给组件
+    this.twoListColumns = handleTwoListDataColumns
+    // 多列选择器三列以上的
     this.threeListColumns = levelThreeData
+    // 过滤生成新的树形结构
+    const result = this.treeDeal(levelThreeData, node => node.selected === true)
+    console.log('result===', result)
+    console.log('treeDeal===', JSON.stringify(result, null, 4))
+    // 过滤取值
+    const resultNames = this.getTreeNames(levelThreeData)
+    this.threeListDefaultIndex = JSON.stringify(resultNames)
+    this.pickerThreeValue = String(resultNames)
+    console.log('resultNames===', resultNames)
   },
   methods: {
     // 单列选择器
@@ -222,27 +219,95 @@ export default {
     // 多列动态选择器
     twoListpickerOnConfirm(value, index) {
       this.pickerTwoValue = value.toString()
-      console.log('pickerTwoValue', value, index)
+      console.log('pickerTwoValue', value, index)// 默认选中的值
       console.log('pickerTwoValue====', this.$refs.showTwoPicker.getValues())
+      // 选中给回默认值
+      this.$nextTick(() => {
+        this.$refs.showRefThreePicker.setValues(value)
+      })
       this.showTwoPicker = false
     },
     onTwoChange(picker, values) {
       console.log('picker ready select', picker)
       console.log(picker.getValues())
     },
+    // 多列选中的默认值**********************************
+    onShowThreePicker() {
+      this.showThreePicker = true
+      this.$nextTick(() => {
+        if (Array.isArray(this.threeListDefaultIndex) && this.threeListDefaultIndex.length) {
+          this.$refs.showRefThreePicker.setValues(this.threeListDefaultIndex)
+        } else {
+          this.$refs.showRefThreePicker.setValues(['福建', '厦门', '思明区'])
+        }
+      })
+    },
     // 多列动态选择器
     threeListpickerOnConfirm(value, index) {
       this.pickerThreeValue = value.toString()
+      this.threeListDefaultIndex = value
       console.log('pickerThreeValue', value, index)
-      console.log('pickerThreeValue====', this.$refs.showThreePicker.getValues())
-
+      console.log('this.$refs.showThreePicker====', this.$refs.showRefThreePicker)
+      console.log('pickerThreeValue====', this.$refs.showRefThreePicker.getValues())
+      // 赋值给选中
+      this.$nextTick(() => {
+        this.$refs.showRefThreePicker.setValues(value)
+      })
       this.showThreePicker = false
     },
     onThreeChange(picker, values) {
       console.log('picker ready select', picker)
       console.log(picker.getValues())
+    },
+    // 递归取值获取新的树形数据结构
+    /**
+ * 递归过滤节点，生成新的树结构
+ * @param {Node[]} nodes 要过滤的节点
+ * @param {node => boolean} predicate 过滤条件，符合条件的节点保留
+ * @return 过滤后的节点
+ */
+    treeDeal(nodes, predicate) {
+      // 如果已经没有节点了，结束递归
+      if (!(nodes && nodes.length)) {
+        return []
+      }
+      const oldNodes = JSON.parse(JSON.stringify(nodes))
+      const newChildren = []
+      for (const node of oldNodes) {
+        if (predicate(node)) {
+          // 如果节点符合条件，直接加入新的节点集
+          newChildren.push(node)
+          node.children = this.treeDeal(node.children, predicate)
+        } else {
+          // 如果当前节点不符合条件，递归过滤子节点，
+          // 把符合条件的子节点提升上来，并入新节点集
+          newChildren.push(...this.treeDeal(node.children, predicate))
+        }
+      }
+      return newChildren
+    },
+    // 递归过滤取值
+    getTreeNames(nodes) {
+      // 如果已经没有节点了，结束递归
+      if (!(nodes && nodes.length)) {
+        return []
+      }
+      const newChildren = []
+      const getSome = (arr) => {
+        arr.some((val, index) => {
+          if (val.selected === true || val.selected === 'true') {
+            newChildren.push(val.text)
+            if (val.children && Array.isArray(val.children) && val.children.length) {
+              getSome(val.children)
+            }
+            return true
+          }
+          return false
+        })
+      }
+      getSome(nodes)
+      return newChildren
     }
-
   }
 }
 </script>

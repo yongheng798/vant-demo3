@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-16 15:31:47
- * @LastEditTime: 2020-07-16 19:32:51
+ * @LastEditTime: 2020-07-17 17:41:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\api\json\vantTestData.js
@@ -36,13 +36,15 @@ export const timeDayList = [
   {
     values: ['周一', '周二', '周三', '周四', '周五'],
     defaultIndex: 2,
-    className: '星期002'
+    className: '星期002',
+    selected: false
   },
   // 第二列
   {
     values: ['上午', '下午', '晚上'],
     defaultIndex: 1,
-    className: '上下晚001'
+    className: '上下晚001',
+    selected: true
   }
 ]
 // 动态选择器
@@ -53,30 +55,36 @@ export const doubleCitys = {
 // 连级动态选择器
 export const levelTwoData = [
   {
-    text: '浙江',
-    className: '001',
+    childName: '浙江',
+    childId: '001',
+    selected: false,
     children: [
       {
-        text: '杭州',
-        className: '0011'
+        childName: '杭州',
+        childId: '0011',
+        selected: false
       },
       {
-        text: '温州',
-        className: '0012'
+        childName: '温州',
+        childId: '0012',
+        selected: false
       }
     ]
   },
   {
-    text: '福建',
-    className: '002',
+    childName: '福建',
+    childId: '002',
+    selected: true,
     children: [
       {
-        text: '福州',
-        className: '0021'
+        childName: '福州',
+        childId: '0021',
+        selected: false
       },
       {
-        text: '厦门',
-        className: '0022'
+        childName: '厦门',
+        childId: '0022',
+        selected: true
       }
     ]
   }
@@ -86,32 +94,50 @@ export const levelThreeData = [
   {
     text: '浙江',
     className: '001',
+    selected: false,
     children: [
       {
         text: '杭州',
         className: '0011',
-        children: [{ text: '西湖区', className: '00111' }, { text: '余杭区', className: '00112' }]
+        selected: false,
+        children: [
+          { text: '西湖区', className: '00111', selected: false },
+          { text: '余杭区', className: '00112', selected: false }
+        ]
       },
       {
         text: '温州',
         className: '0012',
-        children: [{ text: '鹿城区', className: '00121' }, { text: '瓯海区', className: '00121' }]
+        selected: false,
+        children: [
+          { text: '鹿城区', className: '00121', selected: false },
+          { text: '瓯海区', className: '00121', selected: false }
+        ]
       }
     ]
   },
   {
     text: '福建',
     className: '002',
+    selected: true,
     children: [
       {
         text: '福州',
         className: '0021',
-        children: [{ text: '鼓楼区', className: '00211' }, { text: '台江区', className: '00212' }]
+        selected: false,
+        children: [
+          { text: '鼓楼区', className: '00211', selected: false },
+          { text: '台江区', className: '00212', selected: false }
+        ]
       },
       {
         text: '厦门',
         className: '0022',
-        children: [{ text: '思明区', className: '00221' }, { text: '海沧区', className: '00222' }]
+        selected: true,
+        children: [
+          { text: '思明区', className: '00221', selected: true },
+          { text: '海沧区', className: '00222', selected: false }
+        ]
       }
     ]
   }
