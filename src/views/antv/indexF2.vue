@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-15 15:19:57
+ * @LastEditTime: 2020-07-17 09:36:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
@@ -23,9 +23,6 @@
         <van-tab title="雷达图">
           <indexRadarChart />
         </van-tab>
-        <!-- <van-tab title="关系图">
-        <indexRelationChart />
-      </van-tab> -->
         <van-tab title="漏斗图">
           <indexFunnelChart />
         </van-tab>
@@ -37,8 +34,8 @@
         <van-tab title="自定义图形">
           <indexCustomShapeChart />
         </van-tab>
-        <van-tab title="混合图形">
-          <indexMix />
+        <van-tab title="动态组件加载">
+          <indexMix v-for="childData of componentsData" :key="childData.id" :child-data="childData" />
         </van-tab>
       </van-tabs>
     </van-pull-refresh>
@@ -70,7 +67,6 @@ export default {
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [PullRefresh.name]: PullRefresh,
-    // [Toast.name]: Toast,
     indexLineChart,
     indexAreaChart,
     indexBarColumnChart,
@@ -87,7 +83,34 @@ export default {
   data() {
     return {
       refreshCount: 0,
-      isLoading: false
+      isLoading: false,
+      // 动态加载组件
+      componentsData: [
+        {
+          id: 1001,
+          isShow: true,
+          contents: '基本图形',
+          showType: 'BaseChart'
+        },
+        {
+          id: 1002,
+          isShow: true,
+          contents: '饼图',
+          showType: 'PieChart'
+        },
+        {
+          id: 1003,
+          isShow: true,
+          contents: '柱形图+折线图+点位图',
+          showType: 'BarLineChart'
+        },
+        {
+          id: 1004,
+          isShow: true,
+          contents: '双柱图形',
+          showType: 'BarDodgeChart'
+        }
+      ]
     }
   },
   methods: {

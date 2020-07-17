@@ -1,17 +1,19 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-13 11:12:26
+ * @LastEditTime: 2020-07-17 09:23:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
 -->
 <template>
   <div class="constainer">
-    <BaseChart />
-    <BarLineChart :bar-line-chart="barLineChart" :base-legend-obj="baseLegendObj" />
-    <PieChart />
-    <BarDodgeChart />
+    <component
+      :is="isShowItems(childData)"
+      :child-data="childData"
+      :bar-line-chart="barLineChart"
+      :base-legend-obj="baseLegendObj"
+    />
   </div>
 </template>
 
@@ -25,12 +27,19 @@ import BarDodgeChart from '@/components/antv/f2/BarDodgeChart'
 import { barLineChart, baseLegendObj } from '../../../api/json/barLineChart'
 
 export default {
-  name: 'IndexF2',
+  name: 'IndexMix',
   components: {
-    BaseChart,
-    PieChart,
-    BarLineChart,
-    BarDodgeChart
+    BaseChart: BaseChart,
+    PieChart: PieChart,
+    BarLineChart: BarLineChart,
+    BarDodgeChart: BarDodgeChart
+  },
+  props: {
+    childData: {
+      type: Object,
+      required: true,
+      default: () => {}
+    }
   },
   data() {
     return {
@@ -39,6 +48,13 @@ export default {
     }
   },
   methods: {
+    isShowItems(childData) {
+      // console.log('childData===', childData)
+      // if (childData.isShow && childData.isShow !== '') {
+      //   return childData.isShow
+      // }
+      return childData.showType
+    },
     // 组件内路由方法
     beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用

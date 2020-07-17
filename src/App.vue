@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-16 14:03:15
+ * @LastEditTime: 2020-07-17 09:42:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\App.vue
@@ -12,7 +12,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/canvas">Canvas</router-link> |
       <router-link to="/antvF2">AntV F2</router-link>
-      | <router-link to="/vant">Vant</router-link>
+      <!-- | <router-link to="/vant">Vant</router-link> -->
       | <router-link to="/form">Vant Form</router-link>
       <!-- | <router-link to="/swiper">swiper</router-link> -->
       <!-- <router-link to="/antvF2Test">AntV F2 Test</router-link> -->

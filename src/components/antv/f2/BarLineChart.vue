@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-15 10:40:00
+ * @LastEditTime: 2020-07-17 09:05:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -32,6 +32,11 @@ export default {
       default: () => []
     },
     baseLegendObj: {
+      type: Object,
+      required: true,
+      default: () => {}
+    },
+    childData: {
       type: Object,
       required: true,
       default: () => {}

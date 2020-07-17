@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-14 15:55:44
+ * @LastEditTime: 2020-07-17 09:06:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -19,6 +19,13 @@ import _ from 'lodash'
 
 export default {
   name: 'BarDodgeChart',
+  props: {
+    childData: {
+      type: Object,
+      required: true,
+      default: () => {}
+    }
+  },
   data() {
     return {
       Uid: (new Date()).getTime(),

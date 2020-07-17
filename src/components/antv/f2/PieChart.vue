@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-14 15:57:34
+ * @LastEditTime: 2020-07-17 09:31:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLinethis.chart.vue
@@ -17,6 +17,13 @@
 
 export default {
   name: 'PieChart',
+  props: {
+    childData: {
+      type: Object,
+      // required: true,
+      default: () => {}
+    }
+  },
   data() {
     return {
       Uid: (new Date()).getTime(),

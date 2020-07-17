@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 15:09:51
- * @LastEditTime: 2020-07-14 15:56:46
+ * @LastEditTime: 2020-07-17 09:05:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BaseChart.vue
@@ -16,6 +16,13 @@
 <script>
 export default {
   name: 'BaseChart',
+  props: {
+    childData: {
+      type: Object,
+      required: true,
+      default: () => {}
+    }
+  },
   data() {
     return {
       Uid: (new Date()).getTime()
