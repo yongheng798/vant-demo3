@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-19 12:14:19
+ * @LastEditTime: 2020-07-19 12:08:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
@@ -210,7 +210,7 @@ export default {
     timeDayListpickerOnConfirm(value, index) {
       this.pickerTimeValue = value.toString()
       this.$refs.showRefTimePicker.setValues(value)
-      console.log('showTimePicker====', this.$refs.showRefTimePicker.getValues())
+      this.timeDayListDefaultIndex = value
       this.showTimePicker = false
     },
     // 动态选择器
@@ -237,7 +237,6 @@ export default {
     onShowTwoPicker() {
       this.showTwoPicker = true
       this.$nextTick(() => {
-        console.log('twoListDefaultIndex', this.twoListDefaultIndex)
         if (this.twoListDefaultIndex.length) {
           this.$refs.showRefTwoPicker.setValues(Array.from(this.twoListDefaultIndex))
         } else {
