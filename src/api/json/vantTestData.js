@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-07-16 15:31:47
- * @LastEditTime: 2020-07-17 17:41:28
+ * @LastEditTime: 2020-07-19 11:51:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\api\json\vantTestData.js
@@ -36,15 +36,13 @@ export const timeDayList = [
   {
     values: ['周一', '周二', '周三', '周四', '周五'],
     defaultIndex: 2,
-    className: '星期002',
-    selected: false
+    className: '周二'
   },
   // 第二列
   {
     values: ['上午', '下午', '晚上'],
     defaultIndex: 1,
-    className: '上下晚001',
-    selected: true
+    className: '下午'
   }
 ]
 // 动态选择器

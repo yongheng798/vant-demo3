@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-17 19:27:30
+ * @LastEditTime: 2020-07-19 11:51:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
@@ -28,23 +28,22 @@
         @cancel="showPicker = false"
       />
     </van-popup>
-    <!-- 多列选择器 -->
+    <!-- 分类选择器 -->
     <van-field
       readonly
       clickable
       name="pickerClass"
       :value="pickerTimeValue"
-      label="多列选择器"
+      label="分类选择器"
       placeholder="点击选择分类"
-      @click="showTimePicker = true"
+      @click="onShowTimePicker"
     />
     <van-popup v-model="showTimePicker" position="bottom">
       <van-picker
-        ref="showTimePicker"
+        ref="showRefTimePicker"
         show-toolbar
-        title="多列选择器"
+        title="分类选择器"
         :columns="timeDayListColumns"
-        :default-index="timeDayListDefaultIndex"
         @confirm="timeDayListpickerOnConfirm"
         @cancel="showTimePicker = false"
       />
@@ -65,7 +64,6 @@
         show-toolbar
         title="动态选择器"
         :columns="doubleListColumns"
-        :default-index="doubleListDefaultIndex"
         @confirm="doubleListpickerOnConfirm"
         @cancel="showDoublePicker = false"
         @change="onDoubleChange"
@@ -79,15 +77,14 @@
       :value="pickerTwoValue"
       label="两列动态选择器"
       placeholder="两列选择分类"
-      @click="showTwoPicker = true"
+      @click="onShowTwoPicker"
     />
     <van-popup v-model="showTwoPicker" position="bottom">
       <van-picker
-        ref="showTwoPicker"
+        ref="showRefTwoPicker"
         show-toolbar
         title="两列动态选择器"
         :columns="twoListColumns"
-        :default-index="twoListDefaultIndex"
         @confirm="twoListpickerOnConfirm"
         @cancel="showTwoPicker = false"
         @change="onTwoChange"
@@ -135,19 +132,19 @@ export default {
       cityListNames: [], // 单列选择器
       cityListDefaultIndex: 0, // 默认选中
       showTimePicker: false, // 多级选择器
-      timeDayListDefaultIndex: 0, // 多级默认选中
+      timeDayListDefaultIndex: [], // 多级默认选中
       pickerTimeValue: '',
       timeDayListColumns: [],
       // 筛选器动态选项
       pickerDoubleValue: '',
       showDoublePicker: false,
       doubleListColumns: [],
-      doubleListDefaultIndex: '',
+      doubleListDefaultIndex: [],
       // 多列动态选择器
       pickerTwoValue: '',
       showTwoPicker: false,
       twoListColumns: [],
-      twoListDefaultIndex: null,
+      twoListDefaultIndex: [],
       // 多列动态选择器
       pickerThreeValue: '',
       showThreePicker: false,
@@ -167,10 +164,14 @@ export default {
     })
     // 多列筛选器
     this.timeDayListColumns = timeDayList
-    this.timeDayListDefaultIndex = 1
-    console.log('this.timeDayListDefaultIndex', this.timeDayListDefaultIndex)
+    // 取默认值
+    this.timeDayListDefaultIndex = timeDayList.map((val) => {
+      return val.className
+    })
+    this.pickerTimeValue = String(this.timeDayListDefaultIndex)
     // 动态筛选器
     this.doubleListColumns = [{ values: Object.keys(doubleCitys) }, { values: doubleCitys['浙江'] }]
+
     // 两列
     const handleTwoListData = JSON.parse(JSON.stringify(levelTwoData).replace(/childName/g, 'text'))
     console.log('handleTwoListData===', handleTwoListData)
@@ -179,6 +180,9 @@ export default {
     console.log('handleTwoListDataColumns===更改过后的', handleTwoListDataColumns)
     // 赋值给组件
     this.twoListColumns = handleTwoListDataColumns
+    const twoDefaultIndexNames = this.getTreeNames(handleTwoListDataColumns, 'text')
+    this.twoListDefaultIndex = Array.from(twoDefaultIndexNames)
+    this.pickerTwoValue = String(twoDefaultIndexNames)
     // 多列选择器三列以上的
     this.threeListColumns = levelThreeData
     // 过滤生成新的树形结构
@@ -186,8 +190,8 @@ export default {
     console.log('result===', result)
     console.log('treeDeal===', JSON.stringify(result, null, 4))
     // 过滤取值
-    const resultNames = this.getTreeNames(levelThreeData)
-    this.threeListDefaultIndex = JSON.stringify(resultNames)
+    const resultNames = this.getTreeNames(levelThreeData, 'text')
+    this.threeListDefaultIndex = Array.from(resultNames)
     this.pickerThreeValue = String(resultNames)
     console.log('resultNames===', resultNames)
   },
@@ -198,12 +202,22 @@ export default {
       console.log('cityList', cityList[index])
       this.showPicker = false
     },
+    // 分类筛选器
+    onShowTimePicker() {
+      this.showTimePicker = true
+      this.$nextTick(() => {
+        if (this.timeDayListDefaultIndex.length) {
+          this.$refs.showRefTimePicker.setValues(Array.from(this.timeDayListDefaultIndex))
+        } else {
+          this.$refs.showRefTimePicker.setValues([])
+        }
+      })
+    },
     // 筛选器
     timeDayListpickerOnConfirm(value, index) {
       this.pickerTimeValue = value.toString()
-      console.log('pickerTimeValue', value, index)
-      console.log('timeDayList===has selected', timeDayList[0][index[0]], timeDayList[1][index[1]])
-      console.log('showTimePicker====', this.$refs.showTimePicker.getValues())
+      this.$refs.showRefTimePicker.setValues(value)
+      console.log('showTimePicker====', this.$refs.showRefTimePicker.getValues())
       this.showTimePicker = false
     },
     // 动态选择器
@@ -220,25 +234,34 @@ export default {
     twoListpickerOnConfirm(value, index) {
       this.pickerTwoValue = value.toString()
       console.log('pickerTwoValue', value, index)// 默认选中的值
-      console.log('pickerTwoValue====', this.$refs.showTwoPicker.getValues())
+      console.log('pickerTwoValue====', this.$refs.showRefTwoPicker.getValues())
       // 选中给回默认值
-      this.$nextTick(() => {
-        this.$refs.showRefThreePicker.setValues(value)
-      })
+      this.$refs.showRefTwoPicker.setValues(value)
       this.showTwoPicker = false
     },
     onTwoChange(picker, values) {
       console.log('picker ready select', picker)
       console.log(picker.getValues())
     },
+    onShowTwoPicker() {
+      this.showTwoPicker = true
+      this.$nextTick(() => {
+        console.log('twoListDefaultIndex', this.twoListDefaultIndex)
+        if (this.twoListDefaultIndex.length) {
+          this.$refs.showRefTwoPicker.setValues(Array.from(this.twoListDefaultIndex))
+        } else {
+          this.$refs.showRefTwoPicker.setValues([])
+        }
+      })
+    },
     // 多列选中的默认值**********************************
     onShowThreePicker() {
       this.showThreePicker = true
       this.$nextTick(() => {
         if (Array.isArray(this.threeListDefaultIndex) && this.threeListDefaultIndex.length) {
-          this.$refs.showRefThreePicker.setValues(this.threeListDefaultIndex)
+          this.$refs.showRefThreePicker.setValues(Array.from(this.threeListDefaultIndex))
         } else {
-          this.$refs.showRefThreePicker.setValues(['福建', '厦门', '思明区'])
+          this.$refs.showRefThreePicker.setValues([])
         }
       })
     },
@@ -250,9 +273,7 @@ export default {
       console.log('this.$refs.showThreePicker====', this.$refs.showRefThreePicker)
       console.log('pickerThreeValue====', this.$refs.showRefThreePicker.getValues())
       // 赋值给选中
-      this.$nextTick(() => {
-        this.$refs.showRefThreePicker.setValues(value)
-      })
+      this.$refs.showRefThreePicker.setValues(value)
       this.showThreePicker = false
     },
     onThreeChange(picker, values) {
@@ -286,17 +307,18 @@ export default {
       }
       return newChildren
     },
-    // 递归过滤取值
-    getTreeNames(nodes) {
+    // 递归过滤取值,nodes是取值节点，arrtName是要获取的值
+    getTreeNames(nodes, attrName) {
       // 如果已经没有节点了，结束递归
       if (!(nodes && nodes.length)) {
         return []
       }
+      const oldNodes = JSON.parse(JSON.stringify(nodes))
       const newChildren = []
       const getSome = (arr) => {
         arr.some((val, index) => {
           if (val.selected === true || val.selected === 'true') {
-            newChildren.push(val.text)
+            newChildren.push(val[attrName])
             if (val.children && Array.isArray(val.children) && val.children.length) {
               getSome(val.children)
             }
@@ -305,7 +327,7 @@ export default {
           return false
         })
       }
-      getSome(nodes)
+      getSome(oldNodes)
       return newChildren
     }
   }
