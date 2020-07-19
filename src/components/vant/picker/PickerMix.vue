@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-19 11:51:13
+ * @LastEditTime: 2020-07-19 12:07:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
@@ -153,7 +153,6 @@ export default {
     }
   },
   mounted() {
-    console.log('this.$route', this.$route)
     // 单列筛选器,加上默认选中值
     this.cityListNames = cityList.map((val, index) => {
       if (val.selected) {
@@ -174,10 +173,7 @@ export default {
 
     // 两列
     const handleTwoListData = JSON.parse(JSON.stringify(levelTwoData).replace(/childName/g, 'text'))
-    console.log('handleTwoListData===', handleTwoListData)
     const handleTwoListDataColumns = JSON.parse(JSON.stringify(handleTwoListData).replace(/childId/g, 'className'))
-
-    console.log('handleTwoListDataColumns===更改过后的', handleTwoListDataColumns)
     // 赋值给组件
     this.twoListColumns = handleTwoListDataColumns
     const twoDefaultIndexNames = this.getTreeNames(handleTwoListDataColumns, 'text')
@@ -187,19 +183,16 @@ export default {
     this.threeListColumns = levelThreeData
     // 过滤生成新的树形结构
     const result = this.treeDeal(levelThreeData, node => node.selected === true)
-    console.log('result===', result)
     console.log('treeDeal===', JSON.stringify(result, null, 4))
     // 过滤取值
     const resultNames = this.getTreeNames(levelThreeData, 'text')
     this.threeListDefaultIndex = Array.from(resultNames)
     this.pickerThreeValue = String(resultNames)
-    console.log('resultNames===', resultNames)
   },
   methods: {
     // 单列选择器
     pickerOnConfirm(value, index) {
       this.pickerValue = value
-      console.log('cityList', cityList[index])
       this.showPicker = false
     },
     // 分类筛选器
@@ -217,14 +210,12 @@ export default {
     timeDayListpickerOnConfirm(value, index) {
       this.pickerTimeValue = value.toString()
       this.$refs.showRefTimePicker.setValues(value)
-      console.log('showTimePicker====', this.$refs.showRefTimePicker.getValues())
+      this.timeDayListDefaultIndex = value
       this.showTimePicker = false
     },
     // 动态选择器
     doubleListpickerOnConfirm(value, index) {
       this.pickerDoubleValue = value.toString()
-      console.log('pickerDoubleValue', value, index)
-      console.log('showDoublePicker====', this.$refs.showDoublePicker.getValues())
       this.showDoublePicker = false
     },
     onDoubleChange(picker, values) {
@@ -233,9 +224,9 @@ export default {
     // 多列动态选择器
     twoListpickerOnConfirm(value, index) {
       this.pickerTwoValue = value.toString()
-      console.log('pickerTwoValue', value, index)// 默认选中的值
       console.log('pickerTwoValue====', this.$refs.showRefTwoPicker.getValues())
       // 选中给回默认值
+      this.twoListDefaultIndex = value
       this.$refs.showRefTwoPicker.setValues(value)
       this.showTwoPicker = false
     },
@@ -246,7 +237,6 @@ export default {
     onShowTwoPicker() {
       this.showTwoPicker = true
       this.$nextTick(() => {
-        console.log('twoListDefaultIndex', this.twoListDefaultIndex)
         if (this.twoListDefaultIndex.length) {
           this.$refs.showRefTwoPicker.setValues(Array.from(this.twoListDefaultIndex))
         } else {
@@ -269,7 +259,6 @@ export default {
     threeListpickerOnConfirm(value, index) {
       this.pickerThreeValue = value.toString()
       this.threeListDefaultIndex = value
-      console.log('pickerThreeValue', value, index)
       console.log('this.$refs.showThreePicker====', this.$refs.showRefThreePicker)
       console.log('pickerThreeValue====', this.$refs.showRefThreePicker.getValues())
       // 赋值给选中
