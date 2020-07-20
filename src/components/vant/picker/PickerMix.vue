@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-19 12:07:32
+ * @LastEditTime: 2020-07-20 11:09:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
@@ -182,8 +182,8 @@ export default {
     // 多列选择器三列以上的
     this.threeListColumns = levelThreeData
     // 过滤生成新的树形结构
-    const result = this.treeDeal(levelThreeData, node => node.selected === true)
-    console.log('treeDeal===', JSON.stringify(result, null, 4))
+    // const result = this.treeDeal(levelThreeData, node => node.selected === true)
+    // console.log('treeDeal===', JSON.stringify(result, null, 4))
     // 过滤取值
     const resultNames = this.getTreeNames(levelThreeData, 'text')
     this.threeListDefaultIndex = Array.from(resultNames)

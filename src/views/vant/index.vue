@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-16 14:04:22
+ * @LastEditTime: 2020-07-20 11:22:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -66,12 +66,22 @@
         分割线文字
       </van-divider>
     </div>
+    <div class="router-test">
+      <ul>
+        <li>
+          <a @click="pushRouerForm">hello world路由跳转push</a>
+        </li>
+        <li>
+          <a @click="goBackRouerF2">hello world路由跳转goBack</a>
+        </li>
+      </ul>
+    </div>
     <!-- 底部菜单 -->
     <van-tabbar v-model="active" route>
-      <van-tabbar-item icon="home-o" replace to="/">首页</van-tabbar-item>
+      <van-tabbar-item icon="home-o" replace to="/" @>首页</van-tabbar-item>
       <van-tabbar-item icon="search" dot>标签</van-tabbar-item>
       <van-tabbar-item icon="friends-o" badge="5" replace to="/vant">Vant</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" badge="20" replace to="/form">Form</van-tabbar-item>
+      <van-tabbar-item icon="setting-o" badge="20" replace to="{ path: '/form', query: { plan: 'private' }}">Form</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -100,6 +110,7 @@ export default {
     [Grid.name]: Grid,
     [GridItem.name]: GridItem,
     [Toast.name]: Toast
+    // [GridItem.Notify]: Notify
   },
   data() {
     return {
@@ -141,6 +152,22 @@ export default {
     // 下拉
     dropdownOnConfirm() {
       this.$refs.item.toggle()
+    },
+    // 路由编程式导航
+    pushRouerForm(item, from) {
+      // Notify({ type: 'primary', message: index })
+      console.log('666666666', this.$route)
+      this.push({
+        path: '/form',
+        query: {
+          classId: '/form'
+        }
+      })
+    },
+    goBackRouerF2(item, from) {
+      // Notify({ type: 'primary', message: index })
+      console.log('5555', this.$route)
+      this.goBack(2)
     }
   }
 }
@@ -160,5 +187,9 @@ export default {
   height: calc(100% -150px);
   overflow-y: auto;
   overflow-x: hidden;
+}
+.router-test{
+  margin: 50px auto;
+  padding-bottom: 100px;
 }
 </style>

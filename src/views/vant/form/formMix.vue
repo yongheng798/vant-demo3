@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:24
- * @LastEditTime: 2020-07-17 14:20:08
+ * @LastEditTime: 2020-07-20 12:09:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\form\FormMix.vue
@@ -56,10 +56,25 @@ export default {
     }
   },
   watch: {
+    // $route: {
+    //   handler: (route) => {
+    //     if (this.$route.path === '/vant') {
+    //       console.log('从vant进来的')
+    //     }
+    //     // this.redirect = this.$route.query && this.$route.query.redirect
+    //   },
+    //   immediate: true
+    // }
     $route(to, from) {
-      if (from.path === '/form') {
+      if (this.$route.path === '/vant') {
         console.log('从vant进来的')
       }
+    }
+  },
+  mounted() {
+    console.log('push===', this.$route)
+    if (this.$route.query.classId === '/vant') {
+      console.log('从vant进来的')
     }
   },
   methods: {
