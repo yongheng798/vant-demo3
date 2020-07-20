@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-20 11:22:36
+ * @LastEditTime: 2020-07-20 15:57:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -65,6 +65,8 @@
       >
         分割线文字
       </van-divider>
+      <!-- 进度条 -->
+      <Steps />
     </div>
     <div class="router-test">
       <ul>
@@ -81,13 +83,15 @@
       <van-tabbar-item icon="home-o" replace to="/" @>首页</van-tabbar-item>
       <van-tabbar-item icon="search" dot>标签</van-tabbar-item>
       <van-tabbar-item icon="friends-o" badge="5" replace to="/vant">Vant</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" badge="20" replace to="{ path: '/form', query: { plan: 'private' }}">Form</van-tabbar-item>
+      <van-tabbar-item icon="setting-o" badge="20" replace to="/form">Form</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script>
 import { NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, Search, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
+
+import Steps from '@/components/vant/steps/StepsIndex'
 
 export default {
   name: 'Index',
@@ -109,8 +113,9 @@ export default {
     [NoticeBar.name]: NoticeBar,
     [Grid.name]: Grid,
     [GridItem.name]: GridItem,
-    [Toast.name]: Toast
+    [Toast.name]: Toast,
     // [GridItem.Notify]: Notify
+    Steps
   },
   data() {
     return {

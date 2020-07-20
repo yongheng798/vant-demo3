@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-20 10:25:22
+ * @LastEditTime: 2020-07-20 16:11:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\App.vue
@@ -17,11 +17,13 @@
       <!-- | <router-link to="/swiper">swiper</router-link> -->
       <!-- <router-link to="/antvF2Test">AntV F2 Test</router-link> -->
     </div>
-    <transition :name="transitionName">
-      <keep-alive :include="keepAlivePages">
-        <router-view />
-      </keep-alive>
-    </transition>
+    <div class="scroll-container-wrap">
+      <transition :name="transitionName">
+        <keep-alive :include="keepAlivePages">
+          <router-view />
+        </keep-alive>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -84,11 +86,18 @@ export default {
   a {
     font-weight: bold;
     color: #2c3e50;
-
+    font-size: 20px;
     &.router-link-exact-active {
       color: #42b983;
     }
   }
+}
+.scroll-container-wrap{
+  position: relative;
+  width: 100%;
+  height: calc(100%-30px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 // 路由动画
 .slide-fade-enter-active {
