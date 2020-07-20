@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 12:16:12
- * @LastEditTime: 2020-07-17 12:43:15
+ * @LastEditTime: 2020-07-20 09:09:30
  * @LastEditors: Please set LastEditors
  * @Description: 日期日历选择
  * @FilePath: \vant-demo3\src\components\vant\date\DateMix.vue
@@ -76,6 +76,9 @@ export default {
     }
   },
   mounted() {
+    const nowDate = new Date()
+    this.calendarValue = `${nowDate.getMonth() + 1}/${nowDate.getDate()}`
+    this.time = `${nowDate.getFullYear()}-${nowDate.getMonth() + 1}-${nowDate.getDate()}`
   },
   methods: {
     // 日历

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 14:32:50
- * @LastEditTime: 2020-07-17 14:21:34
+ * @LastEditTime: 2020-07-20 08:45:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\antv\indexF2.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="constainer">
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <van-tabs type="card" animated swipeable>
+      <van-tabs type="card" animated swipeable sticky>
         <van-tab title="折线图">
           <indexLineChart />
         </van-tab>
