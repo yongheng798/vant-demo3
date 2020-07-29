@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 12:16:12
- * @LastEditTime: 2020-07-20 09:09:30
+ * @LastEditTime: 2020-07-28 16:05:25
  * @LastEditors: Please set LastEditors
  * @Description: 日期日历选择
  * @FilePath: \vant-demo3\src\components\vant\date\DateMix.vue
@@ -25,7 +25,7 @@
       clickable
       name="datetimePicker"
       :value="time"
-      label="时间选择"
+      label="年月日选择"
       placeholder="点击选择时间"
       @click="showDatetimePicker = true"
     />
@@ -38,6 +38,30 @@
         :formatter="formatterDatetimePicker"
         @confirm="datetimeOnConfirm"
         @cancel="showDatetimePicker = false"
+      />
+    </van-popup>
+
+    <!-- 筛选年月 -->
+    <van-calendar v-model="showCalendar" @confirm="calendarOnConfirm" />
+    <!-- 时间 -->
+    <van-field
+      readonly
+      clickable
+      name="yearMouthPicker"
+      :value="yearMouth"
+      label="年月选择"
+      placeholder="点击选择时间"
+      @click="showYearMouthPicker = true"
+    />
+    <van-popup v-model="showYearMouthPicker" position="bottom">
+      <van-datetime-picker
+        v-model="currentYearMouth"
+        type="year-month"
+        :min-date="minYearMouth"
+        :max-date="maxYearMouth"
+        :formatter="formatterDatetimePicker"
+        @confirm="yearMouthOnConfirm"
+        @cancel="showYearMouthPicker = false"
       />
     </van-popup>
   </div>
@@ -60,12 +84,18 @@ export default {
       pickerValue: '',
       showPicker: false,
       showDatetimePicker: false,
-      minDate: new Date(2020, 0, 1),
-      maxDate: new Date(2025, 10, 1),
+      minDate: new Date(2020, 0, 0),
+      maxDate: new Date(2021, 10, 1),
       currentDate: new Date(),
       time: '',
       calendarValue: '',
-      showCalendar: false
+      showCalendar: false,
+      // 年月选择
+      yearMouth: '',
+      currentYearMouth: new Date(),
+      showYearMouthPicker: false,
+      minYearMouth: new Date(2020, 0, 1),
+      maxYearMouth: new Date(2020, 11, 1)
     }
   },
   watch: {
@@ -77,11 +107,15 @@ export default {
   },
   mounted() {
     const nowDate = new Date()
+    // 默认日历
     this.calendarValue = `${nowDate.getMonth() + 1}/${nowDate.getDate()}`
+    // 默认年月日
     this.time = `${nowDate.getFullYear()}-${nowDate.getMonth() + 1}-${nowDate.getDate()}`
+    // 默认年月
+    this.yearMouth = `${nowDate.getFullYear()}-${nowDate.getMonth() + 1}`
   },
   methods: {
-    // 日历
+    // 年月日选择
     datetimeOnConfirm(value) {
       const times = new Date(parseInt(Date.parse(value)))
 
@@ -112,6 +146,19 @@ export default {
     calendarOnConfirm(date) {
       this.calendarValue = `${date.getMonth() + 1}/${date.getDate()}`
       this.showCalendar = false
+    },
+    // 年月选择
+    yearMouthOnConfirm(value) {
+      const times = new Date(parseInt(Date.parse(value)))
+
+      const $_year = times.getFullYear()
+      const $_month = parseInt(times.getMonth()) + 1
+      const $_f_date = `${$_year}-${$_month}`
+      this.yearMouth = $_f_date
+      const $_f_date2 = `${$_year}年${$_month}月`
+
+      console.log('time', Date.parse(value), `${$_f_date2}`)
+      this.showYearMouthPicker = false
     }
   }
 }

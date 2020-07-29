@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-08 12:30:55
- * @LastEditTime: 2020-07-17 09:05:47
+ * @LastEditTime: 2020-07-28 17:07:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\antv\f2\BarLineChart.vue
@@ -98,19 +98,19 @@ export default {
       const chartLegendItems = this.chartLegendData(baseLegendObj)
       console.log('chartLegendItems===', chartLegendItems)
       // 右边刻度值
-      let rightTicksObj = []
+      let rightTicksObj = {}
       if (Array.isArray(chartBaseData.rightLineData) && chartBaseData.rightLineData.length) {
         rightTicksObj = this.chartTicksLineData(chartBaseData.rightLineData)
         console.log('this.rightTicksObj===', rightTicksObj)
       }
       // 左边刻度值
-      let leftTicksObj = []
+      let leftTicksObj = {}
       if (Array.isArray(chartBaseData.leftLineData) && chartBaseData.leftLineData.length) {
         leftTicksObj = this.chartTicksLineData(chartBaseData.leftLineData)
         console.log('this.leftTicksObj===', leftTicksObj)
       }
       // X轴数据
-      let xLineArrData = []
+      let xLineArrData = {}
       if (Array.isArray(chartBaseData.xLineData) && chartBaseData.xLineData.length) {
         xLineArrData = chartBaseData.xLineData
         console.log('this.xLineArrData===', xLineArrData)

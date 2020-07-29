@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:44:33
- * @LastEditTime: 2020-07-20 15:57:58
+ * @LastEditTime: 2020-07-29 09:55:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\vant\index.vue
@@ -16,15 +16,8 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
     />
-    <!-- 搜索 -->
-    <van-search
-      v-model="value"
-      show-action
-      placeholder="请输入搜索关键词"
-      @search="onSearch"
-      @cancel="onCancel"
-    />
-    <div class="scroll-container">
+    <Search />
+    <div ref="scrollWrap" class="scroll-container">
       <!-- 轮播图 -->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item>1</van-swipe-item>
@@ -89,9 +82,10 @@
 </template>
 
 <script>
-import { NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, Search, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
+import { NavBar, Tabbar, TabbarItem, Swipe, SwipeItem, DropdownMenu, DropdownItem, Switch, Cell, Button, Collapse, CollapseItem, Divider, NoticeBar, Grid, GridItem, Toast } from 'vant'
 
 import Steps from '@/components/vant/steps/StepsIndex'
+import Search from '@/components/vant/search/Search'
 
 export default {
   name: 'Index',
@@ -100,7 +94,6 @@ export default {
     [Tabbar.name]: Tabbar,
     [TabbarItem.name]: TabbarItem,
     [Swipe.name]: Swipe,
-    [Search.name]: Search,
     [SwipeItem.name]: SwipeItem,
     [DropdownMenu.name]: DropdownMenu,
     [DropdownItem.name]: DropdownItem,
@@ -115,7 +108,8 @@ export default {
     [GridItem.name]: GridItem,
     [Toast.name]: Toast,
     // [GridItem.Notify]: Notify
-    Steps
+    Steps,
+    Search
   },
   data() {
     return {
@@ -130,7 +124,10 @@ export default {
         { text: '新款商品', value: 1 },
         { text: '活动商品', value: 2 }
       ],
-      activeName: '1'
+      activeName: '1',
+      // 历史记录
+      historyScrollTop: '',
+      nullScrollTop: ''
     }
   },
   created() {
@@ -139,6 +136,11 @@ export default {
   mounted() {
     console.log('this.$route====', this.$route)
     console.log('this.$router====', this.$router)
+    // 记录历史滚动位置
+    this.$refs.scrollWrap.onscroll = () => {
+      this.historyScrollTop = this.$refs.scrollWrap.scrollTop
+      console.log(`this.historyScrollTop===`, this.historyScrollTop)
+    }
   },
   methods: {
     onClickLeft() {
@@ -157,6 +159,21 @@ export default {
     // 下拉
     dropdownOnConfirm() {
       this.$refs.item.toggle()
+      // 历史滚动位置记录
+      // 接口请求前先把对应的滚动位置赋值给空的
+      this.nullScrollTop = this.historyScrollTop
+      // 接口请求
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$refs.scrollWrap.scrollTop = this.nullScrollTop
+          //
+          // setTimeout(() => {
+          //   if (this.$refs.scrollWrap.scrollTop <= this.nullScrollTop) {
+          //     this.$refs.scrollWrap.scrollTop = this.$refs.scrollWrap.scrollTop
+          //   }
+          // }, 20)
+        }, 20)
+      })
     },
     // 路由编程式导航
     pushRouerForm(item, from) {
