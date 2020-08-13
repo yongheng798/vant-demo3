@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-12 11:58:53
- * @LastEditTime: 2020-07-14 09:00:47
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-08-04 09:01:52
+ * @LastEditors: chenpinfu~陈品富
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\canvas\demo1.vue
 -->
@@ -10,6 +10,8 @@
   <div class="canvas-container-demo-warp">
     <h3 class="title">Canvas的基本认识</h3>
     <canvas id="canvasDemo1" ref="canvasDemo1" />
+    <p>{{ title }}</p>
+    <p @click="changeTitle">点击改变testTitle</p>
   </div>
 </template>
 
@@ -17,8 +19,18 @@
 
 export default {
   name: 'Demo1',
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {}
+  },
+  inject: ['app'],
+  created() {
+    console.log(this.app) // App.vue实例
   },
   mounted() {
     this.createDemo1()
@@ -157,6 +169,10 @@ export default {
       ctx.fillStyle = 'rgba(0,0,255,1)'
       ctx.fill()
       ctx.stroke()
+    },
+    // 改变title
+    changeTitle() {
+      this.$emit('update:title', 'hello')
     }
   }
 }

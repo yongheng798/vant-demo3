@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-15 19:13:04
- * @LastEditTime: 2020-07-16 12:08:02
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-07-31 14:54:11
+ * @LastEditors: chenpinfu~陈品富
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\views\swiper\index.vue
 -->
@@ -14,6 +14,7 @@
 
 <script>
 import AwesomeSwiper from '@/components/common/AwesomeSwiper'
+
 export default {
   name: 'Index',
   components: {

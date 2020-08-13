@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-07 20:38:01
- * @LastEditTime: 2020-07-20 16:11:11
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-08-07 08:38:57
+ * @LastEditors: chenpinfu~陈品富
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\App.vue
 -->
@@ -19,6 +19,9 @@
     </div>
     <div class="scroll-container-wrap">
       <transition :name="transitionName">
+        <!-- include - 字符串或正则表达式，只有名称匹配的组件会被缓存
+exclude - 字符串或正则表达式，任何名称匹配的组件都不会被缓存
+include 和 exclude 的属性允许组件有条件地缓存。二者都可以用“，”分隔字符串、正则表达式、数组。当使用正则或者是数组时，要记得使用v-bind 。 -->
         <keep-alive :include="keepAlivePages">
           <router-view />
         </keep-alive>

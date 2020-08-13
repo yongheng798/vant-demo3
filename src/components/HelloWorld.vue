@@ -1,6 +1,13 @@
+<!--
+ * @Descripttion: 陈品富写的demo描述
+ * @version: 1.0
+ * @Author: chenpinfu~陈品富
+ * @Date: 2020-07-19 12:14:32
+ * @LastEditors: chenpinfu~陈品富
+ * @LastEditTime: 2020-08-04 16:10:14
+-->
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -35,8 +42,11 @@
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+
+  data() {
+    return {
+
+    }
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-07-17 11:47:26
- * @LastEditTime: 2020-07-20 11:09:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-07-31 16:40:12
+ * @LastEditors: chenpinfu~陈品富
  * @Description: In User Settings Edit
  * @FilePath: \vant-demo3\src\components\vant\picker\PickerMix.vue
 -->
