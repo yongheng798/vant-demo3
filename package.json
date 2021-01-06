@@ -10,7 +10,7 @@
   "dependencies": {
     "@antv/data-set": "^0.11.4",
     "@antv/f2": "^3.7.0-alpha.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.19",
     "nprogress": "^0.2.0",
